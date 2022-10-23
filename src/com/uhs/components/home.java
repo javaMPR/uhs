@@ -57,8 +57,18 @@ public class home implements ActionListener {
         f.add(b1);
         f.add(b2);
         f.add(b3);
+        b1.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
+            AdminLogin al1=new AdminLogin();
+            f.show();
+            f.dispose();
+        }});
         b2.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
-            LoginAndRegister lr1=new LoginAndRegister();
+            DLoginAndRegister lr1=new DLoginAndRegister();
+            f.show();
+            f.dispose();
+        }});
+        b3.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
+            PLoginAndRegister lr1=new PLoginAndRegister();
             f.show();
             f.dispose();
         }});

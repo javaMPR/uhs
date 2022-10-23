@@ -4,18 +4,15 @@ import com.uhs.swing.MyPasswordField;
 import com.uhs.swing.MyTextField;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 
-public class LoginAndRegister {
-    public LoginAndRegister(){
-        //Register();
+public class PLoginAndRegister {
+    public PLoginAndRegister(){
         Login();
     }
+
     public void Register(){
         JFrame f1=new JFrame("Universal Healthcare System");
         JLabel l1 = new JLabel("Create Account");
@@ -135,7 +132,7 @@ public class LoginAndRegister {
         b1.setFocusPainted(false);
         f2.add(b1);
         JPanel p1=new JPanel();
-        JLabel jl1=new JLabel("hello, Doctor!");
+        JLabel jl1=new JLabel("hello, Friend!");
         JLabel jl2=new JLabel("Enter your personal details");
         JLabel jl3=new JLabel("and start journey with us");
         jl1.setBounds(930,210,300,40);
@@ -181,8 +178,9 @@ public class LoginAndRegister {
 
     public static void main(String[] args)
     {
-        new LoginAndRegister();
+        new PLoginAndRegister();
     }
+
 
 
 }
