@@ -45,6 +45,12 @@ public class DLoginAndRegister {
         b1.setBorderPainted(false);
         b1.setFocusPainted(false);
         f1.add(b1);
+        b1.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
+            //LoginAndRegister lr2=new LoginAndRegister();
+            DNewRegister dnr1=new DNewRegister();
+            f1.show();
+            f1.dispose();
+        }});
 
         JPanel p1=new JPanel();
         JLabel jl1=new JLabel("Welcome Back!");

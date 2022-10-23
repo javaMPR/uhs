@@ -1,5 +1,7 @@
 package com.uhs.components;
 
+
+
 import com.uhs.swing.MyPasswordField;
 import com.uhs.swing.MyTextField;
 
@@ -49,7 +51,8 @@ public class AdminLogin {
         b1.setBounds(485,460,266,40);
         b1.setBorderPainted(false);
         b1.setFocusPainted(false);
-        f2.add(b1);/*
+        f2.add(b1);
+        /*
         JPanel p1=new JPanel();
         JLabel jl1=new JLabel("hello, Friend!");
         JLabel jl2=new JLabel("Enter your personal details");
