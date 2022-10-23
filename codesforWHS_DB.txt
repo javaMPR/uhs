@@ -17,7 +17,8 @@ CREATE TABLE Patient (
   city varchar(15) not null,
   zipcode int not null,
   Phone int NOT NULL,
-  InsuranceID INTEGER NOT NULL
+  InsuranceID INTEGER NOT NULL,
+  allergy varchar(30)
 );
 
  CREATE TABLE Prescribes (
