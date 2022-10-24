@@ -1,3 +1,7 @@
+CREATE DATABASE whs;
+
+USE uhs;
+
 CREATE TABLE doctor (
   doctorID INTEGER NOT NULL,
   fnamed VARCHAR(15) NOT NULL,
@@ -31,3 +35,6 @@ CREATE TABLE Patient (
        foreign key(doctorID) REFERENCES doctor(doctorID),
        foreign key(patientid) REFERENCES Patient(patientid)
      );
+
+insert into patient values('surya@69hotmail.com','surya','venkat','-','C 420 pdf apaprtments','maharashtra', 'mumbai',400069,9969000000,69420);
+insert into patient values('shrihari@420hotmail.com','shrihari','sudevan','-','A 69 tt apaprtments','maharashtra', 'thane',400420,9969420000,10001);
