@@ -91,6 +91,7 @@ public class AdminLogin {
 
 */
         f2.setSize(1300, 700);
+        f2.setLocationRelativeTo(null);
         f2.getContentPane().setBackground(new Color(255,255,255));
         f2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f2.setLayout(null);

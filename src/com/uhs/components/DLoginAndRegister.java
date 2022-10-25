@@ -72,7 +72,6 @@ public class DLoginAndRegister {
         jb1.setBorderPainted(true);
         jb1.setFocusPainted(false);
         jb1.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
-            //LoginAndRegister lr2=new LoginAndRegister();
             Login();
             f1.show();
             f1.dispose();
@@ -91,12 +90,14 @@ public class DLoginAndRegister {
 
 
         f1.setSize(1300, 700);
+        f1.setLocationRelativeTo(null);
         f1.getContentPane().setBackground(new Color(255,255,255));
         f1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f1.setLayout(null);
         f1.setVisible(true);
     }
     public void Login(){
+        String semail,spass;
         JFrame f2=new JFrame("Universal Healthcare System");
         JLabel l1 = new JLabel("Sign In");
         l1.setFont(new Font("Vardana", 1, 50));
@@ -137,6 +138,14 @@ public class DLoginAndRegister {
         b1.setBorderPainted(false);
         b1.setFocusPainted(false);
         f2.add(b1);
+        b1.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
+            //LoginAndRegister lr2=new LoginAndRegister();
+            String getvalueemail=txtEmail.getText();
+            DocDashBoard ddb1=new DocDashBoard(getvalueemail);
+
+            f2.show();
+            f2.dispose();
+        }});
         JPanel p1=new JPanel();
         JLabel jl1=new JLabel("hello, Doctor!");
         JLabel jl2=new JLabel("Enter your personal details");
@@ -176,6 +185,7 @@ public class DLoginAndRegister {
 
 
         f2.setSize(1300, 700);
+        f2.setLocationRelativeTo(null);
         f2.getContentPane().setBackground(new Color(255,255,255));
         f2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f2.setLayout(null);

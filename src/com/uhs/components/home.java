@@ -74,6 +74,7 @@ public class home implements ActionListener {
         }});
 
         f.setSize(1300, 700);
+        f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setLayout(null);
         f.setVisible(true);

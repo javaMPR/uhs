@@ -91,6 +91,7 @@ public class PLoginAndRegister {
 
 
         f1.setSize(1300, 700);
+        f1.setLocationRelativeTo(null);
         f1.getContentPane().setBackground(new Color(255,255,255));
         f1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f1.setLayout(null);
@@ -176,6 +177,7 @@ public class PLoginAndRegister {
 
 
         f2.setSize(1300, 700);
+        f2.setLocationRelativeTo(null);
         f2.getContentPane().setBackground(new Color(255,255,255));
         f2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f2.setLayout(null);

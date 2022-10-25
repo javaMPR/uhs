@@ -1,21 +1,17 @@
 package com.uhs.components;
 
+import com.uhs.swing.MyPasswordField;
 import com.uhs.swing.MyTextArea;
 import com.uhs.swing.MyTextField;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.MatteBorder;
-import javax.swing.plaf.basic.BasicBorders;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.Date;
-import javax.swing.border.*;
 
- class DNewRegister  {
+class DNewRegister  {
     public DNewRegister(){
         JFrame f=new JFrame("Universal Healthcare System");
         JLabel l1=new JLabel("REGISTRATION DETAILS");
@@ -24,6 +20,7 @@ import javax.swing.border.*;
         l1.setForeground(Color.white);
         JPanel p=new JPanel();
         p.setLayout(null);
+
         JLabel l2=new JLabel("FIRST NAME:");
         l2.setFont(new Font("Vardana", Font.BOLD, 16));
         l2.setForeground(new Color(3, 4, 94));
@@ -34,6 +31,7 @@ import javax.swing.border.*;
         t2.setBounds(150,20,250,40);
         t2.setHint("First Name");
         p.add(t2);
+
         JLabel l3=new JLabel("MIDDLE NAME:");
         l3.setFont(new Font("Vardana", 1, 16));
         l3.setForeground(new Color(3, 4, 94));
@@ -44,6 +42,7 @@ import javax.swing.border.*;
         t3.setBounds(555,20,250,40);
         t3.setHint("Middle Name");
         p.add(t3);
+
         JLabel l4=new JLabel("LAST NAME:");
         l4.setFont(new Font("Vardana", Font.BOLD, 16));
         l4.setForeground(new Color(3, 4, 94));
@@ -54,139 +53,170 @@ import javax.swing.border.*;
         t4.setBounds(950,20,250,40);
         t4.setHint("Last Name");
         p.add(t4);
+
         JLabel l5=new JLabel("ADDRESS:");
         l5.setFont(new Font("Vardana", Font.BOLD, 16));
         l5.setForeground(new Color(3, 4, 94));
-        l5.setBounds(30,70,150,40);
+        l5.setBounds(30,90,150,40);
         p.add(l5);
         MyTextArea ta1=new MyTextArea();
-        ta1.setBounds(150,70,1050,60);
+        ta1.setBounds(150,90,1050,60);
         ta1.setFont(new Font("Vardana",1,14));
         ta1.setHint("Address");
         p.add(ta1);
+
         JLabel l6=new JLabel("State:");
         l6.setFont(new Font("Vardana", Font.BOLD, 16));
         l6.setForeground(new Color(3, 4, 94));
-        l6.setBounds(30,141,150,40);
+        l6.setBounds(30,181,150,40);
         p.add(l6);
         MyTextField t6=new MyTextField();
         t6.setFont(new Font("Vardana",1,14));
-        t6.setBounds(150,141,200,40);
+        t6.setBounds(150,181,200,40);
         t6.setHint("State");
         p.add(t6);
+
         JLabel l7=new JLabel("CITY:");
         l7.setFont(new Font("Vardana", 1, 16));
         l7.setForeground(new Color(3, 4, 94));
-        l7.setBounds(360,141,150,40);
+        l7.setBounds(360,181,150,40);
         p.add(l7);
         MyTextField t7=new MyTextField();
         t7.setFont(new Font("Vardana",1,14));
-        t7.setBounds(420,141,200,40);
+        t7.setBounds(420,181,200,40);
         t7.setHint("City");
         p.add(t7);
+
         JLabel l8=new JLabel("PINCODE:");
         l8.setFont(new Font("Vardana", Font.BOLD, 16));
         l8.setForeground(new Color(3, 4, 94));
-        l8.setBounds(630,141,150,40);
+        l8.setBounds(630,181,150,40);
         p.add(l8);
         MyTextField t8=new MyTextField();
         t8.setFont(new Font("Vardana",1,14));
-        t8.setBounds(730,141,200,40);
+        t8.setBounds(730,181,200,40);
         t8.setHint("Pincode");
         p.add(t8);
+
         JLabel l9=new JLabel("BLOOD GROUP:");
         l9.setFont(new Font("Vardana", Font.BOLD, 16));
         l9.setForeground(new Color(3, 4, 94));
-        l9.setBounds(950,141,150,40);
+        l9.setBounds(950,181,150,40);
         p.add(l9);
         String bloodgrp[]={"--Select--","A+","A-","B+","B-","AB+","AB-","O+","O-"};
         JComboBox cb=new JComboBox(bloodgrp);
-        cb.setBounds(1100, 141,90,40);
+        cb.setBounds(1100, 181,90,40);
         p.add(cb);
+
         JLabel l10=new JLabel("GENDER: ");
         l10.setFont(new Font("Vardana", Font.BOLD, 16));
         l10.setForeground(new Color(3, 4, 94));
-        l10.setBounds(30,195,150,40);
+        l10.setBounds(30,255,150,40);
         p.add(l10);
         ButtonGroup bg=new ButtonGroup();
         JRadioButton r1=new JRadioButton("Male");
         JRadioButton r2=new JRadioButton("Female");
         bg.add(r1);bg.add(r2);
         p.add(r1);p.add(r2);
-        r1.setBounds(130,188,70,60);
+        r1.setBounds(130,248,70,60);
         r1.setFocusPainted(false);
         r1.setBorderPainted(false);
         r1.setBackground(Color.white);
         r1.setForeground(new Color(3, 4, 94));
         r1.setFont(new Font("Vardana", Font.BOLD, 12));
-        r2.setBounds(200,188,70,60);
+        r2.setBounds(200,248,70,60);
         r2.setFocusPainted(false);
         r2.setBorderPainted(false);
         r2.setBackground(Color.white);
         r2.setForeground(new Color(3, 4, 94));
         r2.setFont(new Font("Vardana", Font.BOLD, 12));
+
         JLabel l11=new JLabel("CONTACT NO:");
         l11.setFont(new Font("Vardana", Font.BOLD, 16));
         l11.setForeground(new Color(3, 4, 94));
-        l11.setBounds(290,197,120,40);
+        l11.setBounds(290,255,120,40);
         p.add(l11);
         MyTextField t11=new MyTextField();
         t11.setFont(new Font("Vardana",1,14));
-        t11.setBounds(420,195,200,40);
+        t11.setBounds(420,255,200,40);
         t11.setHint("Contact No");
         p.add(t11);
+
         JLabel l12=new JLabel("Email:");
         l12.setFont(new Font("Vardana", Font.BOLD, 16));
         l12.setForeground(new Color(3, 4, 94));
-        l12.setBounds(660,195,150,40);
+        l12.setBounds(660,255,150,40);
         p.add(l12);
         MyTextField t12=new MyTextField();
         t12.setFont(new Font("Vardana",1,14));
-        t12.setBounds(730,195,200,40);
+        t12.setBounds(730,255,200,40);
         t12.setHint("Email Address");
         p.add(t12);
+
         JLabel l13=new JLabel("D.O.B:");
         l13.setFont(new Font("Vardana", Font.BOLD, 16));
         l13.setForeground(new Color(3, 4, 94));
-        l13.setBounds(950,195,150,40);
+        l13.setBounds(950,255,150,40);
         p.add(l13);
         MyTextField t13=new MyTextField();
         t13.setFont(new Font("Vardana",1,14));
-        t13.setBounds(1010,195,190,40);
+        t13.setBounds(1010,255,190,40);
         t13.setHint("-Date-Of-Birth-");
         p.add(t13);
 
         JLabel l52=new JLabel("QUALIFICATION:");
         l52.setFont(new Font("Vardana", Font.BOLD, 16));
         l52.setForeground(new Color(3, 4, 94));
-        l52.setBounds(30,250,150,40);
+        l52.setBounds(30,330,150,40);
         p.add(l52);
         MyTextField t52=new MyTextField();
         t52.setFont(new Font("Vardana",1,14));
-        t52.setBounds(180,250,250,40);
+        t52.setBounds(180,330,250,40);
         t52.setHint("Last Education degree");
         p.add(t52);
         JLabel l53=new JLabel("SPECIALIZATION:");
         l53.setFont(new Font("Vardana", 1, 16));
         l53.setForeground(new Color(3, 4, 94));
-        l53.setBounds(460,250,150,40);
+        l53.setBounds(460,330,150,40);
         p.add(l53);
         MyTextField t53=new MyTextField();
         t53.setFont(new Font("Vardana",1,14));
-        t53.setBounds(605,250,250,40);
+        t53.setBounds(605,330,250,40);
         t53.setHint("Specialize In");
         p.add(t53);
         JLabel l54=new JLabel("D.O.P:");
         l54.setFont(new Font("Vardana", Font.BOLD, 16));
         l54.setForeground(new Color(3, 4, 94));
-        l54.setBounds(880,250,150,40);
+        l54.setBounds(880,330,150,40);
         p.add(l54);
         MyTextField t54=new MyTextField();
         t54.setFont(new Font("Vardana",1,14));
-        t54.setBounds(950,250,250,40);
+        t54.setBounds(950,330,250,40);
         t54.setHint("-Date-Of-Start-practing-");
         p.add(t54);
 
+        JLabel l31=new JLabel("PASSWORD:");
+        l31.setFont(new Font("Vardana", Font.BOLD, 16));
+        l31.setForeground(new Color(3, 4, 94));
+        l31.setBounds(30,410,150,40);
+        p.add(l31);
+        MyPasswordField t31=new MyPasswordField();
+        t31.setFont(new Font("Vardana",1,14));
+        t31.setBounds(150,410,250,40);
+        t31.setHint("Password");
+        p.add(t31);
+
+        JLabel l32=new JLabel("CONFIRM PASSWORD:");
+        l32.setFont(new Font("Vardana", Font.BOLD, 16));
+        l32.setForeground(new Color(3, 4, 94));
+        l32.setBounds(750,410,250,40);
+        p.add(l32);
+        MyPasswordField t32=new MyPasswordField();
+        t32.setFont(new Font("Vardana",1,14));
+        t32.setBounds(950,410,250,40);
+        t32.setHint("Password");
+        p.add(t32);
+/*
         JLabel l21=new JLabel("EMERGENCY PERSON DETAILS:");
         l21.setFont(new Font("Vardana", Font.BOLD, 16));
         l21.setForeground(new Color(3, 4, 94));
@@ -283,7 +313,7 @@ import javax.swing.border.*;
         t38.setFont(new Font("Vardana",1,14));
         t38.setBounds(1010,435,190,40);
         t38.setHint("State");
-        p.add(t38);
+        p.add(t38);*/
 
         JButton b = new JButton("REGISTER");
         b.setForeground(Color.white);
@@ -316,12 +346,32 @@ import javax.swing.border.*;
             }
         });
 
+        b.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
+            String pass=String.valueOf(t31.getPassword());
+            String cpass=String.valueOf(t32.getPassword());
+            if(pass.equals(cpass)){
+                if (pass.isEmpty()||cpass.isEmpty())
+                {
+                    JOptionPane.showMessageDialog(null,"Password or Confirm Password not entered ");
+                }
+                else {
+                JOptionPane.showMessageDialog(null,"Register");
+                DLoginAndRegister lr1=new DLoginAndRegister();
+                f.show();
+                f.dispose();
+            }}
+            else {
+                JOptionPane.showMessageDialog(null,"Password and Confirm Password not matches");
+            }
+        }});
+
         p.setBackground(Color.white);
         p.setBounds(10,50,1265,600);
         f.add(p);
         f.add(l1);
         f.getContentPane().setBackground(new Color(3, 4,94));
         f.setSize(1300, 700);
+        f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setLayout(null);
         f.setVisible(true);
