@@ -7,6 +7,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class DLoginAndRegister {
     public DLoginAndRegister(){
@@ -140,11 +144,36 @@ public class DLoginAndRegister {
         f2.add(b1);
         b1.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
             //LoginAndRegister lr2=new LoginAndRegister();
-            String getvalueemail=txtEmail.getText();
-            DocDashBoard ddb1=new DocDashBoard("Sumil",getvalueemail);
+            String username = txtEmail.getText();
+            String password = txtPass.getText();
+            if(username.equals("")||password.equals("")){
+                JOptionPane.showMessageDialog(null,"Enter Credentials");
+            }
+            else{
+                try{
+                    Connection c= DriverManager.getConnection("jdbc:mysql://localhost:3306/uhs","root","Sumil399");
+                    String qu="Select * from doctor where doctorID=? and passwordd=?";
+                    PreparedStatement ps= c.prepareStatement(qu);
+                    ps.setString(1,username);
+                    ps.setString(2,password);
+                    ResultSet rs= ps.executeQuery();
 
-            f2.show();
-            f2.dispose();
+                    if(rs.next()){
+                        String fnme=rs.getString("fnamed");
+                        JOptionPane.showMessageDialog(null,"Login Successful");
+                        //TAKE TO DASHBOARD
+
+                        DocDashBoard ddb1=new DocDashBoard(fnme,username);
+                        f2.show();
+                        f2.dispose();
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null,"Login UnSuccessful");
+                    }
+                }catch(Exception e1){
+                    e1.printStackTrace();
+                }
+            }
         }});
         JPanel p1=new JPanel();
         JLabel jl1=new JLabel("hello, Doctor!");

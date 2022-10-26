@@ -17,6 +17,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class DocDashBoard {
     public String dname,demail;
@@ -40,15 +44,19 @@ public class DocDashBoard {
         l32.setFont(new Font("sansserif", Font.ITALIC, 36));
         l32.setForeground(Color.white);
         JButton b30=new JButton("   DASHBOARD");
-        JButton b31=new JButton("   VIEW DETAILS");
-        JButton b32=new JButton("   EDIT DETAILS");
-        JButton b33=new JButton("   CHANGE PASSWORD");
-        JButton b34=new JButton("   LOG OUT");
+        JButton b31=new JButton("   SEARCH DOCTOR");
+        JButton b32=new JButton("   CHANGE PASSWORD");
+        JButton b33=new JButton("   LOG OUT");
         p1.add(b30);
         p1.add(b31);
         p1.add(b32);
         p1.add(b33);
-        p1.add(b34);
+        b33.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
+            home h3=new home();
+            f.show();
+            f.dispose();
+
+        }});
         b30.setBorder(new MatteBorder(1,0,0,0,Color.white));
         b30.setBackground(new Color(3, 4, 94));
         b30.setForeground(Color.white);
@@ -81,14 +89,7 @@ public class DocDashBoard {
         b33.setFont(new Font("sansserif",Font.BOLD, 14));
         b33.setFocusPainted(false);
         b33.setBorderPainted(false);
-        b34.setBorder(new MatteBorder(1,0,2,0,Color.white));
-        b34.setBackground(new Color(3, 4, 94));
-        b34.setForeground(Color.white);
-        b34.setBounds(0, 240, 250, 40);
-        b34.setHorizontalAlignment(JLabel.LEFT);
-        b34.setFont(new Font("sansserif",Font.BOLD, 14));
-        b34.setFocusPainted(false);
-        b34.setBorderPainted(false);
+
 
         JPanel p2=new JPanel();
         p2.setBounds(240,0,1060,40);
@@ -104,52 +105,35 @@ public class DocDashBoard {
         p2.add(lName);
         this.demail=semail;
         this.dname=sname;
-        lName.setText("Hello,"+String.valueOf(dname));
+        lName.setText("Hello, "+String.valueOf(dname));
+
+
         JPanel p5=new JPanel();
         p5.setBounds(940,70,325,160);
-        p5.setBackground(Color.gray);
+        p5.setBackground(new Color(200,240,247));
         f.add(p5);
         p5.setLayout(null);
-        JLabel l41=new JLabel("TOTAL  NO  OF  PATIENT:");
+        JLabel l41=new JLabel();
+        l41.setText("Doctor Name: "+String.valueOf(sname));
         l41.setForeground(Color.black);
-        l41.setBounds(16, 8, 250, 40);
+        l41.setBounds(16, 10, 450, 40);
         l41.setHorizontalAlignment(JLabel.LEFT);
         l41.setFont(new Font("sansserif",Font.BOLD, 14));
         p5.add(l41);
 
-        JLabel l42=new JLabel("ONGOING  PATIENT  TREATMENT:");
+        JLabel l42=new JLabel();
+        l42.setText("Doctor Email: "+String.valueOf(semail));
         l42.setForeground(Color.black);
-        l42.setBounds(16, 36, 250, 40);
+        l42.setBounds(16, 50, 450, 40);
         l42.setHorizontalAlignment(JLabel.LEFT);
         l42.setFont(new Font("sansserif",Font.BOLD, 14));
         p5.add(l42);
-
-        JButton b40=new JButton("ADD PATIENT");
-        JButton b41=new JButton("VIEW PATIENT");
-        JButton b42=new JButton("CONTACT  ANOTHER  DOCTOR");
-        p5.add(b40);
-        p5.add(b41);
+        JButton b42=new JButton(" ADD PATIENT ");
         p5.add(b42);
-        b40.setBorder(new MatteBorder(1,0,0,0,Color.white));
-        b40.setBackground(Color.BLACK);
-        b40.setForeground(Color.gray);
-        b40.setBounds(16, 77, 140, 35);
-        b40.setHorizontalAlignment(JLabel.CENTER);
-        b40.setFont(new Font("sansserif",Font.BOLD, 14));
-        b40.setFocusPainted(false);
-        b40.setBorderPainted(false);
-        b41.setBorder(new MatteBorder(1,0,0,0,Color.white));
-        b41.setBackground(Color.BLACK);
-        b41.setForeground(Color.GRAY);
-        b41.setBounds(169, 77, 140, 35);
-        b41.setHorizontalAlignment(JLabel.CENTER);
-        b41.setFont(new Font("sansserif",Font.BOLD, 14));
-        b41.setBorderPainted(false);
-        b41.setFocusPainted(false);
         b42.setBorder(new MatteBorder(1,0,0,0,Color.white));
-        b42.setBackground(Color.BLACK);
-        b42.setForeground(Color.GRAY);
-        b42.setBounds(16, 117, 293, 35);
+        b42.setBackground(new Color(2,62,138));
+        b42.setForeground(Color.white);
+        b42.setBounds(16, 100, 293, 35);
         b42.setHorizontalAlignment(JLabel.CENTER);
         b42.setFont(new Font("sansserif",Font.BOLD, 14));
         b42.setBorderPainted(false);
@@ -204,7 +188,7 @@ public class DocDashBoard {
         jta1.setBorder(new MatteBorder(0,0,0,0,Color.white));
         //jh1.setRowHeight(40);
         //jh1.setShowVerticalLines(false);
-        jh1.setBackground(Color.gray);
+        jh1.setBackground(new Color(200,240,247));
         jh1.setFont(new Font("sansserif", 1, 12));
         JScrollPane jsp1=new JScrollPane(jta1,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         p7.add(jsp1);
@@ -248,42 +232,41 @@ public class DocDashBoard {
             }
         });
 
-        Object[] data11={"Sujal","sujalgandhi@gmail.com","123456789"};
-        model.addRow(data11);
-
-        b40.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
+        b42.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
             JFrame p8=new JFrame("ADD PATIENT");
 
-            JLabel text1=new JLabel("FIRST NAME:");
-            JLabel text2=new JLabel("EMAIL ID:");
-            JLabel text3=new JLabel("Contact no:");
+            JLabel text1=new JLabel("EMAIL ID:");
+            JLabel text2=new JLabel();
+            JLabel text3=new JLabel();
 
-            MyTextField textFname = new MyTextField();
             MyTextField textEmail = new MyTextField();
-            MyTextField textStatus =new MyTextField();
+            //MyTextField textEmail = new MyTextField();
+            //MyTextField textStatus =new MyTextField();
 
             JButton btnAdd = new JButton("Add");
             JButton btnDelete = new JButton("Clear");
 
-            text1.setBounds(20, 20, 200, 40);
-            text2.setBounds(20, 70, 200, 40);
-            text3.setBounds(20, 120, 200, 40);
+            text1.setBounds(20, 20, 100, 40);
+            text2.setBounds(20, 70, 500, 40);
+            text3.setBounds(20, 120, 500, 40);
             text1.setFont(new Font("sansserif",Font.BOLD, 14));
             text2.setFont(new Font("sansserif",Font.BOLD, 14));
             text3.setFont(new Font("sansserif",Font.BOLD, 14));
+            text2.setText("Patient Name:");
+            text3.setText("Patient Contact No:");
 
-            textFname.setBounds(160, 20, 200, 35);
-            textEmail.setBounds(160, 70, 200, 35);
-            textStatus.setBounds(160, 120, 200, 35);
+            textEmail.setBounds(100, 20, 200, 35);
+            //textEmail.setBounds(160, 70, 200, 35);
+            //textStatus.setBounds(160, 120, 200, 35);
             text1.setFont(new Font("sansserif",Font.BOLD, 14));
             text2.setFont(new Font("sansserif",Font.BOLD, 14));
             text3.setFont(new Font("sansserif",Font.BOLD, 14));
-            textFname.setHint("Enter The Name");
-            textEmail.setHint("Enter the Email Id");
-            textStatus.setHint("Enter Contact no");
-            textFname.setFont(new Font("sansserif",Font.BOLD, 12));
+            textEmail.setHint("Enter The Email Id");
+            //textEmail.setHint("Enter the Email Id");
+            //textStatus.setHint("Enter Contact no");
+            //textFname.setFont(new Font("sansserif",Font.BOLD, 12));
             textEmail.setFont(new Font("sansserif",Font.BOLD, 12));
-            textStatus.setFont(new Font("sansserif",Font.BOLD, 12));
+            //textStatus.setFont(new Font("sansserif",Font.BOLD, 12));
 
             btnAdd.setFocusPainted(false);
             btnAdd.setBorderPainted(false);
@@ -296,38 +279,59 @@ public class DocDashBoard {
             p8.add(text1);
             p8.add(text2);
             p8.add(text3);
-            p8.add(textFname);
+            //p8.add(textFname);
             p8.add(textEmail);
-            p8.add(textStatus);
+            //p8.add(textStatus);
             p8.add(btnAdd);
             p8.add(btnDelete);
 
             Object[] row = new Object[3];
 
-            btnDelete.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    textFname.setText("");
-                    textEmail.setText("");
-                    textStatus.setText("");
-                }
-            });
+
 
             btnAdd.addActionListener(new ActionListener(){
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    String username=textEmail.getText();
 
-                    row[0] = textFname.getText();
-                    row[1] = textEmail.getText();
-                    row[2] = textStatus.getText();
+                    try{
+                        Connection c= DriverManager.getConnection("jdbc:mysql://localhost:3306/uhs","root","Sumil399");
+                        String qu="Select * from Patient where patientid=?";
+                        PreparedStatement ps= c.prepareStatement(qu);
+                        ps.setString(1,username);
+                        ResultSet rs= ps.executeQuery();
 
-                    // add row to the model
-                    model.addRow(row);
-                    p8.setVisible(false);
-                    p8.dispose();
-                    JOptionPane.showMessageDialog(null,"PATIENT HAVE BEEN ADDED");
+                        if(rs.next()){
+                            String fnme=rs.getString("fnamep");
+                            String phne=rs.getString("Phonep");
+                            text2.setText("Patient Name: "+String.valueOf(fnme));
+                            text3.setText("Patient Contact No: "+String.valueOf(phne));
+                            row[0] = fnme;
+                            row[1] = username;
+                            row[2] = phne;
 
+                            // add row to the model
+                            model.addRow(row);
+                            p8.setVisible(true);
+                            //p8.dispose();
+                            JOptionPane.showMessageDialog(null,"PATIENT HAVE BEEN ADDED");
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(null,"Enter Valid Patient Email Id");
+                        }
+                    }catch(Exception e1){
+                        e1.printStackTrace();
+                    }
+                }
+            });
+
+            btnDelete.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    text2.setText("Patient Name:");
+                    textEmail.setText("");
+                    text3.setText("Patient Contact No:");
                 }
             });
 
@@ -339,6 +343,130 @@ public class DocDashBoard {
             p8.setVisible(true);
 
         }});
+
+        b31.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
+            JFrame p8=new JFrame("SEARCH DOCTOR");
+
+            JLabel text1=new JLabel("EMAIL ID:");
+            JLabel text2=new JLabel();
+            JLabel text3=new JLabel();
+
+            MyTextField textEmail = new MyTextField();
+            //MyTextField textEmail = new MyTextField();
+            //MyTextField textStatus =new MyTextField();
+
+            JButton btnAdd = new JButton("Search");
+            JButton btnDelete = new JButton("Clear");
+
+            text1.setBounds(20, 20, 100, 40);
+            text2.setBounds(20, 70, 500, 40);
+            text3.setBounds(20, 120, 500, 40);
+            text1.setFont(new Font("sansserif",Font.BOLD, 14));
+            text2.setFont(new Font("sansserif",Font.BOLD, 14));
+            text3.setFont(new Font("sansserif",Font.BOLD, 14));
+            text2.setText("Doctor Name:");
+            text3.setText("Doctor Contact No:");
+
+            textEmail.setBounds(100, 20, 200, 35);
+            //textEmail.setBounds(160, 70, 200, 35);
+            //textStatus.setBounds(160, 120, 200, 35);
+            text1.setFont(new Font("sansserif",Font.BOLD, 14));
+            text2.setFont(new Font("sansserif",Font.BOLD, 14));
+            text3.setFont(new Font("sansserif",Font.BOLD, 14));
+            textEmail.setHint("Enter The Email Id");
+            //textEmail.setHint("Enter the Email Id");
+            //textStatus.setHint("Enter Contact no");
+            //textFname.setFont(new Font("sansserif",Font.BOLD, 12));
+            textEmail.setFont(new Font("sansserif",Font.BOLD, 12));
+            //textStatus.setFont(new Font("sansserif",Font.BOLD, 12));
+
+            btnAdd.setFocusPainted(false);
+            btnAdd.setBorderPainted(false);
+            btnDelete.setFocusPainted(false);
+            btnDelete.setBorderPainted(false);
+
+            btnAdd.setBounds(80, 180, 100, 25);
+            btnDelete.setBounds(190, 180, 100, 25);
+
+            p8.add(text1);
+            p8.add(text2);
+            p8.add(text3);
+            //p8.add(textFname);
+            p8.add(textEmail);
+            //p8.add(textStatus);
+            p8.add(btnAdd);
+            p8.add(btnDelete);
+
+
+
+
+            btnAdd.addActionListener(new ActionListener(){
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String username1=textEmail.getText();
+
+                    try{
+                        Connection c= DriverManager.getConnection("jdbc:mysql://localhost:3306/uhs","root","Sumil399");
+                        String qu="Select * from doctor where doctorID=?";
+                        PreparedStatement ps= c.prepareStatement(qu);
+                        ps.setString(1,username1);
+                        ResultSet rs= ps.executeQuery();
+
+                        if(rs.next()){
+                            String fnme=rs.getString("fnamed");
+                            String lnme=rs.getString("lnamed");
+                            String phne=rs.getString("phoned");
+                            text2.setText("Doctor Name: "+String.valueOf(fnme)+" "+String.valueOf(lnme));
+                            text3.setText("Doctor Contact No: "+String.valueOf(phne));
+
+                            p8.setVisible(true);
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(null,"Enter Valid Doctor Email Id");
+                        }
+                    }catch(Exception e1){
+                        e1.printStackTrace();
+                    }
+                }
+            });
+
+            btnDelete.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    text2.setText("Doctor Name:");
+                    textEmail.setText("");
+                    text3.setText("Doctor Contact No:");
+                }
+            });
+
+            p8.setBackground(Color.black);
+            p8.setSize(400, 300);
+            p8.setLocationRelativeTo(null);
+            //p8.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            p8.setLayout(null);
+            p8.setVisible(true);
+
+        }});
+
+        try{
+            Connection c1= DriverManager.getConnection("jdbc:mysql://localhost:3306/uhs","root","Sumil399");
+            PreparedStatement pss= c1.prepareStatement("Select * from patient where patientid in(select patientid from report where doctorid=?)");
+            pss.setString(1,semail);
+            ResultSet rss= pss.executeQuery();
+            Object[] row = new Object[3];
+            while(rss.next()){
+
+
+                row[0]=rss.getString("fnamep");
+                row[1]=rss.getString("patientid");
+                row[2]=rss.getString("Phonep");
+                model.addRow(row);
+            }
+
+        }catch (Exception ee){
+            JOptionPane.showMessageDialog(null,"ERROR OCCURED");
+        };
 
         /*
         String[][] data = {
@@ -436,7 +564,7 @@ public class DocDashBoard {
         jsp2.setForeground(Color.black);
         JLabel l22=new JLabel("NOTICE");
         l22.setForeground(Color.BLACK);
-        p6.setBackground(Color.gray);
+        p6.setBackground(new Color(200,240,247));
         p6.add(l22);
         l22.setBounds(150,0,320,30);
 

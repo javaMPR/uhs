@@ -6,10 +6,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class Prescription {
     public Prescription(){}
      public Prescription(String patname,String patid,String rID,String Docname,String DocId,String dise,String Drec,String Dupto,String comm,String descp,String Dos){
+
          JFrame f=new JFrame("Universal Healthcare System");
          JPanel p=new JPanel();
          JLabel l1=new JLabel("U.H.S");
@@ -39,39 +44,23 @@ public class Prescription {
          Drecor.setFont(new Font("Vardana", Font.BOLD, 18));
          p.add(Drecor);
 
-         pname.setText("Patient Name: "+String.valueOf(patname)+" MIDDLE NAMME  LAST NAME");
-         pname.setBounds(20,42,600,40);
+         pname.setText("Patient Name: "+String.valueOf(patname));
+         pname.setBounds(20,50,600,40);
          pname.setFont(new Font("Vardana", Font.BOLD, 18));
          p.add(pname);
 
          pid.setText("Patient Email Id: "+String.valueOf(patid));
-         pid.setBounds(850,42,500,40);
+         pid.setBounds(850,50,500,40);
          pid.setFont(new Font("Vardana", Font.BOLD, 18));
          p.add(pid);
 
-         gend.setText("Gender: ");//+String.valueOf()
-         gend.setBounds(20,74,400,40);
-         gend.setFont(new Font("Vardana", Font.BOLD, 18));
-         p.add(gend);
-
-         pcon.setText("Contact no: ");//+String.valueOf()
-         pcon.setBounds(230,74,450,40);
-         pcon.setFont(new Font("Vardana", Font.BOLD, 18));
-         p.add(pcon);
-
-         statep.setText("State: ");//+String.valueOf(DocId)
-         statep.setBounds(850,74,450,40);
-         statep.setFont(new Font("Vardana", Font.BOLD, 18));
-         p.add(statep);
-
-
          dname.setText("Prescribed By Dr."+String.valueOf(Docname));
-         dname.setBounds(20,107,300,40);
+         dname.setBounds(20,95,300,40);
          dname.setFont(new Font("Vardana", Font.BOLD, 18));
          p.add(dname);
 
          did.setText("Doctor Email Id: "+String.valueOf(DocId));
-         did.setBounds(850,107,500,40);
+         did.setBounds(850,95,500,40);
          did.setFont(new Font("Vardana", Font.BOLD, 18));
          p.add(did);
 

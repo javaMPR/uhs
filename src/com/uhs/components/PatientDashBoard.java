@@ -17,11 +17,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class PatientDashBoard {
-    public String p;
+    public String p,Dnam, Dupto, comm,descp, Dos;
     public PatientDashBoard(){}
-    public PatientDashBoard(String sname){
+    public PatientDashBoard(String sname,String semail){
 
 
         JFrame f= new JFrame("Universal Healthcare System");
@@ -34,10 +38,10 @@ public class PatientDashBoard {
         JLabel l31=new JLabel(new ImageIcon(getClass().getResource("/com/uhs/images/i1.png")));
         p1.add(l31);
         l31.setBounds(15,20,50,50);
-        JLabel l32=new JLabel("U.H.S");
+        JLabel l32=new JLabel("UHS");
         p1.add(l32);
         l32.setBounds(70,10,150,50);
-        l32.setFont(new Font("sansserif", Font.ITALIC, 36));
+        l32.setFont(new Font("sansserif", Font.BOLD, 36));
         l32.setForeground(Color.white);
         JButton b30=new JButton("   DASHBOARD");
         JButton b31=new JButton("   VIEW DETAILS");
@@ -51,6 +55,22 @@ public class PatientDashBoard {
         p1.add(b33);
         p1.add(b35);
         p1.add(b34);
+
+        b31.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
+            NewViewP np1=new NewViewP(semail);
+
+        }});
+        b32.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
+            NewEditP np2=new NewEditP(semail);
+
+        }});
+        b34.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
+            home h3=new home();
+            f.show();
+            f.dispose();
+
+        }});
+
         b30.setBorder(new MatteBorder(1,0,0,0,Color.white));
         b30.setBackground(new Color(3, 4, 94));
         b30.setForeground(Color.white);
@@ -111,7 +131,7 @@ public class PatientDashBoard {
 
         JPanel p3=new JPanel();
         p3.setBounds(260,70,325,160);
-        p3.setBackground(Color.white);
+        p3.setBackground(new Color(200,240,247));
         f.add(p3);
         p3.setLayout(null);
         JLabel li1=new JLabel("ABOUT LAST TREATMENT:");
@@ -145,7 +165,7 @@ public class PatientDashBoard {
 
         JPanel p4=new JPanel();
         p4.setBounds(600,70,325,160);
-        p4.setBackground(Color.white);
+        p4.setBackground(new Color(200,240,247));
         f.add(p4);
         p4.setLayout(null);
         JLabel li41=new JLabel("ABOUT PREVIOUS TREATMENT:");
@@ -184,54 +204,38 @@ public class PatientDashBoard {
         lName.setText("Hello,"+String.valueOf(p));
         JPanel p5=new JPanel();
         p5.setBounds(940,70,325,160);
-        p5.setBackground(Color.gray);
+        p5.setBackground(new Color(200,240,247));
         f.add(p5);
-        p5.setLayout(null);/*
-        JLabel l41=new JLabel("TOTAL  NO  OF  PATIENT:");
+        p5.setLayout(null);
+        JLabel l41=new JLabel("ALERT:");
         l41.setForeground(Color.black);
-        l41.setBounds(16, 8, 250, 40);
+        l41.setBounds(16, 7, 250, 40);
         l41.setHorizontalAlignment(JLabel.LEFT);
         l41.setFont(new Font("sansserif",Font.BOLD, 14));
         p5.add(l41);
 
-        JLabel l42=new JLabel("ONGOING  PATIENT  TREATMENT:");
+        JLabel l42=new JLabel("Disease: Flu");
         l42.setForeground(Color.black);
-        l42.setBounds(16, 36, 250, 40);
+        l42.setBounds(16, 44, 250, 40);
         l42.setHorizontalAlignment(JLabel.LEFT);
         l42.setFont(new Font("sansserif",Font.BOLD, 14));
         p5.add(l42);
 
-        JButton b40=new JButton("ADD PATIENT");
-        JButton b41=new JButton("VIEW PATIENT");
-        JButton b42=new JButton("CONTACT  ANOTHER  DOCTOR");
-        p5.add(b40);
-        p5.add(b41);
-        p5.add(b42);
-        b40.setBorder(new MatteBorder(1,0,0,0,Color.white));
-        b40.setBackground(Color.BLACK);
-        b40.setForeground(Color.gray);
-        b40.setBounds(16, 77, 140, 35);
-        b40.setHorizontalAlignment(JLabel.CENTER);
-        b40.setFont(new Font("sansserif",Font.BOLD, 14));
-        b40.setFocusPainted(false);
-        b40.setBorderPainted(false);
-        b41.setBorder(new MatteBorder(1,0,0,0,Color.white));
-        b41.setBackground(Color.BLACK);
-        b41.setForeground(Color.GRAY);
-        b41.setBounds(169, 77, 140, 35);
-        b41.setHorizontalAlignment(JLabel.CENTER);
-        b41.setFont(new Font("sansserif",Font.BOLD, 14));
-        b41.setBorderPainted(false);
-        b41.setFocusPainted(false);
-        b42.setBorder(new MatteBorder(1,0,0,0,Color.white));
-        b42.setBackground(Color.BLACK);
-        b42.setForeground(Color.GRAY);
-        b42.setBounds(16, 117, 293, 35);
-        b42.setHorizontalAlignment(JLabel.CENTER);
-        b42.setFont(new Font("sansserif",Font.BOLD, 14));
-        b42.setBorderPainted(false);
-        b42.setFocusPainted(false);
-*/
+        JLabel l43=new JLabel("Patient Recorded: 03");
+        l43.setForeground(Color.black);
+        l43.setBounds(16, 82, 250, 40);
+        l43.setHorizontalAlignment(JLabel.LEFT);
+        l43.setFont(new Font("sansserif",Font.BOLD, 14));
+        p5.add(l43);
+
+        JLabel l44=new JLabel("Location: Mumbai");
+        l44.setForeground(Color.black);
+        l44.setBounds(16, 120, 250, 40);
+        l44.setHorizontalAlignment(JLabel.LEFT);
+        l44.setFont(new Font("sansserif",Font.BOLD, 14));
+        p5.add(l44);
+
+
         JPanel p6=new JPanel();
         p6.setBounds(940,250,325,400);
         p6.setBackground(Color.white);
@@ -269,6 +273,46 @@ public class PatientDashBoard {
         p7.add(jta1);
         jh1.setBounds(0,40,665,40);
 
+        try{
+            Connection c1= DriverManager.getConnection("jdbc:mysql://localhost:3306/uhs","root","Sumil399");
+            PreparedStatement pss= c1.prepareStatement("Select * from report where patientid in(select patientid from patient where patientid=?)");
+            pss.setString(1,semail);
+            ResultSet rss= pss.executeQuery();
+            Object[] row = new Object[4];
+            while(rss.next()){
+
+                row[0]=rss.getString("reportid");
+                row[1]=rss.getString("doctorID");
+                row[2]=rss.getString("disease");
+                row[3]=rss.getString("date_rcd");
+                Dupto= rss.getString("date_upto");
+                Dnam=rss.getString("Dnamer");
+                comm=rss.getString("desc_report");
+                descp=rss.getString("medication");
+                Dos=rss.getString("Dose");
+                model.addRow(row);
+            }
+
+        }catch (Exception ee){
+            JOptionPane.showMessageDialog(null,"ERROR OCCURED");
+        };
+
+
+       /* try{
+            Connection c1= DriverManager.getConnection("jdbc:mysql://localhost:3306/uhs","root","Sumil399");
+            PreparedStatement pss= c1.prepareStatement("Select * from doctor where doctorID in(select doctorID from report where patientid=?)");
+            pss.setString(1,semail);
+            ResultSet rss= pss.executeQuery();
+            while(rss.next()){
+
+                Dnam= rss.getString("fnamed");
+
+            }
+
+        }catch (Exception ee){
+            JOptionPane.showMessageDialog(null,"ERROR OCCURED");
+        };*/
+
 
         jta1.setRowHeight(50);
         jta1.setGridColor(new Color(230, 230, 230));
@@ -281,7 +325,7 @@ public class PatientDashBoard {
         jta1.setBorder(new MatteBorder(0,0,0,0,Color.white));
         //jh1.setRowHeight(40);
         //jh1.setShowVerticalLines(false);
-        jh1.setBackground(Color.gray);
+        jh1.setBackground(new Color(200,240,247));
         jh1.setFont(new Font("sansserif", 1, 12));
         JScrollPane jsp1=new JScrollPane(jta1,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         p7.add(jsp1);
@@ -290,11 +334,15 @@ public class PatientDashBoard {
         jta1.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                int row=jta1.rowAtPoint(e.getPoint());
+                int i=jta1.rowAtPoint(e.getPoint());
+                String repID=jta1.getValueAt(i,0).toString();
+                //String rdocn=jta1.getValueAt(i,1).toString();
+                String rdocID=jta1.getValueAt(i,1).toString();
+                String rdisease=jta1.getValueAt(i,2).toString();
+                String rdrec=jta1.getValueAt(i,3).toString();
 
-                int col= jta1.columnAtPoint(e.getPoint());
+                Prescription pres=new Prescription(sname,semail,repID,Dnam,rdocID,rdisease,rdrec,Dupto,comm,descp,Dos);
 
-                JOptionPane.showMessageDialog(null,"Name:"+ " " +jta1.getValueAt(row,0).toString()+"    Email Id:"+ " " +jta1.getValueAt(row,1).toString());
 
                 //System.out.println("Name:"+ " " +jta1.getValueAt(row,0).toString());
             }
@@ -506,7 +554,7 @@ public class PatientDashBoard {
         jsp2.setForeground(Color.black);
         JLabel l22=new JLabel("NOTICE");
         l22.setForeground(Color.BLACK);
-        p6.setBackground(Color.gray);
+        p6.setBackground(new Color(144,224,239));
         p6.add(l22);
         l22.setBounds(150,0,320,30);
 
@@ -526,6 +574,6 @@ public class PatientDashBoard {
 
 
     public static void main(String[] args){
-        new PatientDashBoard("SUMIL");
+        new PatientDashBoard("sujal","sujal@gmail.com");
     }
 }

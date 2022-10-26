@@ -10,6 +10,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 class DNewRegister  {
     public DNewRegister(){
@@ -103,9 +106,11 @@ class DNewRegister  {
         l9.setForeground(new Color(3, 4, 94));
         l9.setBounds(950,181,150,40);
         p.add(l9);
-        String bloodgrp[]={"--Select--","A+","A-","B+","B-","AB+","AB-","O+","O-"};
-        JComboBox cb=new JComboBox(bloodgrp);
+//        String bloodgrp[]={"--Select--","A+","A-","B+","B-","AB+","AB-","O+","O-"};
+        MyTextField cb=new MyTextField();
         cb.setBounds(1100, 181,90,40);
+        cb.setFont(new Font("Vardana",1,14));
+        cb.setHint("BG");
         p.add(cb);
 
         JLabel l10=new JLabel("GENDER: ");
@@ -355,15 +360,70 @@ class DNewRegister  {
                     JOptionPane.showMessageDialog(null,"Password or Confirm Password not entered ");
                 }
                 else {
-                JOptionPane.showMessageDialog(null,"Register");
-                DLoginAndRegister lr1=new DLoginAndRegister();
-                f.show();
-                f.dispose();
+                    String fname = t2.getText();
+                    String mname =t3.getText();
+                    String lname =t4.getText();
+                    String phone = t11.getText();
+                    String addp = ta1.getText();
+                    String statep=t6.getText();
+                    String cityp =t7.getText();
+                    String pincodep= t8.getText();
+
+                    String gender = "male";
+                    if(r1.isSelected()){
+                        gender="male";
+                    }
+                    else if(r2.isSelected()){
+                        gender="female";
+                    }
+                    String bloodgroup = cb.getText();
+                    String emaild= t12.getText();
+                    String dob1= t13.getText();
+                    String quali = t52.getText();
+                    String special = t53.getText();
+                    String dop1 = t54.getText();
+                    String pass2d= t31.getText();
+                    String pass1d= t32.getText();
+                    try {
+                        Connection c1= DriverManager.getConnection("jdbc:mysql://localhost:3306/uhs","root","Sumil399");
+                        String qu1= "insert into doctor values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                        PreparedStatement ps2 = c1.prepareStatement(qu1);
+
+                        ps2.setString(1,emaild);
+                        ps2.setString(2,fname);
+                        ps2.setString(3,mname);
+                        ps2.setString(4,lname);
+                        ps2.setString(5,special);
+                        ps2.setString(6,phone);
+                        ps2.setString(7,cityp);
+                        ps2.setString(8,addp);
+                        ps2.setString(9,statep);
+                        ps2.setString(10,pincodep);
+                        ps2.setString(11,bloodgroup);
+                        ps2.setString(12,gender);
+                        ps2.setString(13,dob1);
+                        ps2.setString(14,dop1);
+                        ps2.setString(15,quali);
+                        ps2.setString(16,pass1d);
+                        ps2.executeUpdate();
+                        JOptionPane.showMessageDialog(null,"Data Registered Successfully");
+
+                        DLoginAndRegister d1=new DLoginAndRegister();
+                        f.show();
+                        f.dispose();
+
+                    }catch (Exception e2){
+                        e2.printStackTrace();
+                    }
+
+
+
             }}
             else {
                 JOptionPane.showMessageDialog(null,"Password and Confirm Password not matches");
             }
         }});
+
 
         p.setBackground(Color.white);
         p.setBounds(10,50,1265,600);

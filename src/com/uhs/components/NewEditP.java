@@ -5,9 +5,6 @@ import com.uhs.swing.MyTextArea;
 import com.uhs.swing.MyTextField;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.MatteBorder;
-import javax.swing.plaf.basic.BasicBorders;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,13 +13,12 @@ import java.awt.event.ItemListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.util.Date;
-import javax.swing.border.*;
-
-public class NewRegister  {
-    public NewRegister(){
+import java.sql.ResultSet;
+public class NewEditP {
+    public NewEditP(){};
+    public NewEditP(String pid){
         JFrame f=new JFrame("Universal Healthcare System");
-        JLabel l1=new JLabel("REGISTRATION DETAILS");
+        JLabel l1=new JLabel("PATIENT DETAILS");
         l1.setBounds(500,15,300,30);
         l1.setFont(new Font("Vardana", 1, 20));
         l1.setForeground(Color.white);
@@ -107,7 +103,6 @@ public class NewRegister  {
         MyTextField cb=new MyTextField();
         cb.setBounds(1100, 161,90,40);
         cb.setForeground(new Color(3, 4, 94));
-        cb.setFont(new Font("Vardana",1,14));
         cb.setHint("BG");
         p.add(cb);
         JLabel l10=new JLabel("GENDER: ");
@@ -222,23 +217,87 @@ public class NewRegister  {
         l31.setFont(new Font("Vardana", Font.BOLD, 16));
         l31.setForeground(new Color(3, 4, 94));
         l31.setBounds(30,410,150,40);
-        p.add(l31);
-        MyPasswordField t31=new MyPasswordField();
-        t31.setFont(new Font("Vardana",1,14));
-        t31.setBounds(150,410,250,40);
-        t31.setHint("Password");
-        p.add(t31);
+       p.add(l31);
+       MyPasswordField t31=new MyPasswordField();
+       t31.setFont(new Font("Vardana",1,14));
+       t31.setBounds(150,410,250,40);
+       t31.setHint("Password");
+       p.add(t31);
 
-        JLabel l52=new JLabel("CONFIRM PASSWORD:");
-        l52.setFont(new Font("Vardana", Font.BOLD, 16));
-        l52.setForeground(new Color(3, 4, 94));
-        l52.setBounds(750,410,250,40);
-        p.add(l52);
-        MyPasswordField t52=new MyPasswordField();
-        t52.setFont(new Font("Vardana",1,14));
-        t52.setBounds(950,410,250,40);
-        t52.setHint("Password");
-        p.add(t52);
+       JLabel l52=new JLabel("CONFIRM PASSWORD:");
+       l52.setFont(new Font("Vardana", Font.BOLD, 16));
+       l52.setForeground(new Color(3, 4, 94));
+       l52.setBounds(750,410,250,40);
+       p.add(l52);
+       MyPasswordField t52=new MyPasswordField();
+       t52.setFont(new Font("Vardana",1,14));
+       t52.setBounds(950,410,250,40);
+       t52.setHint("Password");
+       p.add(t52);
+        try {
+            Connection c1= DriverManager.getConnection("jdbc:mysql://localhost:3306/uhs","root","Sumil399");
+            String qq="Select * from patient where patientid=? ";
+            PreparedStatement ps1=c1.prepareStatement(qq);
+            ps1.setString(1,pid);
+            ResultSet rs=ps1.executeQuery();
+            while (rs.next()) {
+                String fanmepat = rs.getString("fnamep");
+                String mnamepat = rs.getString("mnamep");
+                String lnamepat = rs.getString("lnamep");
+                String addp = rs.getString("Addressp");
+                String statep = rs.getString("statep");
+                String cityp = rs.getString("cityp");
+                String pincodep = rs.getString("zipcodep");
+                String emailp = rs.getString("patientid");
+                String phonep = rs.getString("Phonep");
+                String relid = rs.getString("rel_id");
+                String allergy = rs.getString("allergy");
+                String bgp = rs.getString("bloodgroupp");
+                String gender = rs.getString("genderp");
+                String dobp = rs.getString("dob_pat");
+                String reltype = rs.getString("rel_type");
+
+                t2.setText(String.valueOf(fanmepat));
+                t3.setText(String.valueOf(mnamepat));
+                t4.setText(String.valueOf(lnamepat));
+                t11.setText(String.valueOf(phonep));
+                ta1.setText(String.valueOf(addp));
+                t6.setText(String.valueOf(statep));
+                t7.setText(String.valueOf(cityp));
+                t8.setText(String.valueOf(pincodep));
+                t12.setText(String.valueOf(emailp));
+                t13.setText(String.valueOf(dobp));
+                t36.setText(String.valueOf(allergy));
+                t33.setText(String.valueOf(relid));
+                t32.setText(String.valueOf(reltype));
+                cb.setText(String.valueOf(bgp));
+
+            }
+//                    String fnamepat = t2.getText();
+//
+//                    String mnamepat = t3.getText();
+//                    String lnamepat = t4.getText();
+//                    String phonepat = t11.getText();
+//                    String addpat = ta1.getText();
+//                    String statepat = t6.getText();
+//                    String citypat = t7.getText();
+//                    String pincodepat = t8.getText();
+//                    String genderpat = "male";
+//                    String bloodgroup = cb.getText();
+//                    String emailpat = t12.getText();
+//                    String dob1pat = t13.getText();
+//                    String allergy = t36.getText();
+//                    String pass2dpat = t31.getText();
+//                    String pass1dpat = t52.getText();
+//                    String relid = t33.getText();
+//                    String reltype = t32.getText();
+
+        }catch (Exception ew){ ew.printStackTrace();};
+
+
+
+
+
 
         JButton b = new JButton("REGISTER");
         b.setForeground(Color.white);
@@ -348,13 +407,13 @@ public class NewRegister  {
         f.getContentPane().setBackground(new Color(3, 4,94));
         f.setSize(1300, 700);
         f.setLocationRelativeTo(null);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setLayout(null);
         f.setVisible(true);
 
     }
 
     public static void main(String[] args){
-        new NewRegister();
+        new NewViewP("sarthak");
     }
 }

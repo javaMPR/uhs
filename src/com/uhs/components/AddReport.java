@@ -8,6 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -45,7 +49,7 @@ public class AddReport{
         table.setModel(model);
 
         // Change A JTable Background Color, Font Size, Font Color, Row Height
-        table.setBackground(Color.LIGHT_GRAY);
+        //table.setBackground(new Color(200,240,247));
         table.setForeground(Color.black);
         Font font = new Font("",1,22);
         table.setFont(font);
@@ -53,6 +57,9 @@ public class AddReport{
 
         // create JButtons
         JButton btnAdd = new JButton("Add");
+        btnAdd.setBorderPainted(false);
+        btnAdd.setFocusPainted(false);
+        btnAdd.setBackground(new Color(200,240,247));
 
 
         // create JScrollPane
@@ -70,7 +77,7 @@ public class AddReport{
         table.setShowGrid(false);
         table.setShowVerticalLines(false);
         th.setFont(new Font("sansserif", Font.BOLD, 12));
-        th.setBackground(Color.gray);
+        th.setBackground(new Color(200,240,247));
 
         JLabel reporthead=new JLabel("ADD NEW REPORT:");
         JLabel rid=new JLabel("REPORT Id:");
@@ -171,31 +178,82 @@ public class AddReport{
         JButton btnDelete = new JButton("Clear");
         btnDelete.setBounds(858,380,100,25);
         frame.add(btnDelete);
+        btnDelete.setBorderPainted(false);
+        btnDelete.setFocusPainted(false);
+        btnDelete.setBackground(new Color(200,240,247));
         frame.setLayout(null);
         frame.add(pane);
         Object[] row = new Object[9];
         Object[] r00001={"R00001","Flue","Shubhum","shubhum123@hotmail.com","10-10-2022","29-10-2022","Xray of L2","Dolo350,crocin","3"};
         model.addRow(r00001);
 
+
         // button add row
         btnAdd.addActionListener(new ActionListener(){
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                String t1 = pmal;
+                String t2 =dmal;
+                String t3 =trid.getText();
+                String t4 = tdisease.getText();
+                String t5 = tdescp.getText();
+                String t6=tDrec.getText();
+                String t7 =tDupto.getText();
+                String t8= tdescription.getText();
+                String t9 = tdoses.getText();
+                String t10="";
+                String t11=dnam;
+                try{
+                    Connection c1= DriverManager.getConnection("jdbc:mysql://localhost:3306/uhs","root","Sumil399");
+                    String qu1= "insert into report values(?,?,?,?,?,?,?,?,?,?,?)";
+                    PreparedStatement pst = c1.prepareStatement(qu1);
+                    pst.setString(1,t1);
+                    pst.setString(2,t2);
+                    pst.setString(3,t3);
+                    pst.setString(4,t4);
+                    pst.setString(5,t5);
+                    pst.setString(6,t6);
+                    pst.setString(7,t7);
+                    pst.setString(8,t8);
+                    pst.setString(9,t9);
+                    pst.setString(10,t10);
+                    pst.setString(11,t11);
+                    pst.executeUpdate();
+                    /*String dnmed="";
+                    try {
+                        Connection c11 = DriverManager.getConnection("jdbc:mysql://localhost:3306/uhs", "root", "Sumil399");
+                        String qu11 = "Select * from doctor where doctorID in(select doctorID from report where reportid=?)";
+                        PreparedStatement pst1 = c11.prepareStatement(qu11);
+                        pst1.setString(1,t3);
+                        ResultSet rs1=pst1.executeQuery();
+                        while(rs1.next()){
 
-                row[0] = trid.getText();
-                row[1] = tdisease.getText();
-                row[2] = dnam;
-                row[3] = dmal;
-                row[4] = tDrec.getText();
-                row[5] = tDupto.getText();
-                row[6] = tdescription.getText();
-                row[7] = tdescp.getText();
-                row[8] = tdoses.getText();
+                            dnmed= rs1.getString("fnamed");
+
+                        }
+                    }catch (Exception e1){
+                        e1.printStackTrace();
+                    }*/
+                    row[0] = trid.getText();
+                    row[1] = tdisease.getText();
+                    row[2] = dnam;
+                    row[3] = dmal;
+                    row[4] = tDrec.getText();
+                    row[5] = tDupto.getText();
+                    row[6] = tdescription.getText();
+                    row[7] = tdescp.getText();
+                    row[8] = tdoses.getText();
 
 
-                // add row to the model
-                model.addRow(row);
+                    // add row to the model
+                    model.addRow(row);
+                    JOptionPane.showMessageDialog(null,"Data Added Successfully");
+
+                }catch (Exception e1){
+                    e1.printStackTrace();
+                }
+
             }
         });
         btnDelete.addActionListener(new ActionListener(){
@@ -230,7 +288,7 @@ public class AddReport{
                 String rpres=model.getValueAt(i,7).toString();
                 String rdose=model.getValueAt(i,8).toString();
 
-                JOptionPane.showMessageDialog(null,model.getValueAt(i,7));
+                JOptionPane.showMessageDialog(null,model.getValueAt(i,0));
                 Prescription pres=new Prescription(pnme,pmal,repID,rdocn,rdocID,rdisease,rdrec,rdupto,rcomment,rpres,rdose);
 /*
                 textId.setText(model.getValueAt(i, 0).toString());
@@ -239,6 +297,31 @@ public class AddReport{
                 textAge.setText(model.getValueAt(i, 3).toString());*/
             }
         });
+
+        try{
+            Connection c1= DriverManager.getConnection("jdbc:mysql://localhost:3306/uhs","root","Sumil399");
+            PreparedStatement pss= c1.prepareStatement("Select * from report where patientid in(select patientid from patient where patientid=?)");
+            pss.setString(1,pmal);
+            ResultSet rss= pss.executeQuery();
+            Object[] row1 = new Object[9];
+            while(rss.next()){
+
+
+                row[0]=rss.getString("reportid");
+                row[1]=rss.getString("disease");
+                row[2]=rss.getString("Dnamer");
+                row[3]=rss.getString("doctorID");
+                row[4]=rss.getString("date_rcd");
+                row[5]=rss.getString("date_upto");
+                row[6]=rss.getString("desc_report");
+                row[7]=rss.getString("medication");
+                row[8]=rss.getString("Dose");
+                model.addRow(row);
+            }
+
+        }catch (Exception ee){
+            JOptionPane.showMessageDialog(null,"ERROR OCCURED");
+        };
 
 
         frame.getContentPane().setBackground(Color.white);
