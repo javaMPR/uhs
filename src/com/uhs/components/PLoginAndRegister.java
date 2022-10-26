@@ -138,6 +138,14 @@ public class PLoginAndRegister {
         b1.setBorderPainted(false);
         b1.setFocusPainted(false);
         f2.add(b1);
+        b1.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
+            //LoginAndRegister lr2=new LoginAndRegister();
+            String getvalueemail=txtEmail.getText();
+            PatientDashBoard ddb1=new PatientDashBoard(getvalueemail);
+
+            f2.show();
+            f2.dispose();
+        }});
         JPanel p1=new JPanel();
         JLabel jl1=new JLabel("hello, Friend!");
         JLabel jl2=new JLabel("Enter your personal details");

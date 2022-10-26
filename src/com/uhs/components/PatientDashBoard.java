@@ -18,10 +18,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class DocDashBoard {
-    public String dname,demail;
-    public DocDashBoard(){}
-    public DocDashBoard(String sname,String semail){
+public class PatientDashBoard {
+    public String p;
+    public PatientDashBoard(){}
+    public PatientDashBoard(String sname){
 
 
         JFrame f= new JFrame("Universal Healthcare System");
@@ -44,10 +44,12 @@ public class DocDashBoard {
         JButton b32=new JButton("   EDIT DETAILS");
         JButton b33=new JButton("   CHANGE PASSWORD");
         JButton b34=new JButton("   LOG OUT");
+        JButton b35=new JButton("   VIEW DOCTORS");
         p1.add(b30);
         p1.add(b31);
         p1.add(b32);
         p1.add(b33);
+        p1.add(b35);
         p1.add(b34);
         b30.setBorder(new MatteBorder(1,0,0,0,Color.white));
         b30.setBackground(new Color(3, 4, 94));
@@ -81,10 +83,18 @@ public class DocDashBoard {
         b33.setFont(new Font("sansserif",Font.BOLD, 14));
         b33.setFocusPainted(false);
         b33.setBorderPainted(false);
+        b35.setBorder(new MatteBorder(1,0,2,0,Color.white));
+        b35.setBackground(new Color(3, 4, 94));
+        b35.setForeground(Color.white);
+        b35.setBounds(0, 240, 250, 40);
+        b35.setHorizontalAlignment(JLabel.LEFT);
+        b35.setFont(new Font("sansserif",Font.BOLD, 14));
+        b35.setFocusPainted(false);
+        b35.setBorderPainted(false);
         b34.setBorder(new MatteBorder(1,0,2,0,Color.white));
         b34.setBackground(new Color(3, 4, 94));
         b34.setForeground(Color.white);
-        b34.setBounds(0, 240, 250, 40);
+        b34.setBounds(0, 280, 250, 40);
         b34.setHorizontalAlignment(JLabel.LEFT);
         b34.setFont(new Font("sansserif",Font.BOLD, 14));
         b34.setFocusPainted(false);
@@ -98,18 +108,85 @@ public class DocDashBoard {
         JLabel p11=new JLabel(new ImageIcon(getClass().getResource("/com/uhs/images/user.png")));
         p11.setBounds(1000,1,50,40);
         p2.add(p11);
+
+        JPanel p3=new JPanel();
+        p3.setBounds(260,70,325,160);
+        p3.setBackground(Color.white);
+        f.add(p3);
+        p3.setLayout(null);
+        JLabel li1=new JLabel("ABOUT LAST TREATMENT:");
+        li1.setForeground(Color.black);
+        li1.setBounds(16, 7, 250, 40);
+        li1.setHorizontalAlignment(JLabel.LEFT);
+        li1.setFont(new Font("sansserif",Font.BOLD, 14));
+        p3.add(li1);
+
+        JLabel li2=new JLabel("REPORT ID:");
+        li2.setForeground(Color.black);
+        li2.setBounds(16, 44, 250, 40);
+        li2.setHorizontalAlignment(JLabel.LEFT);
+        li2.setFont(new Font("sansserif",Font.BOLD, 14));
+        p3.add(li2);
+
+        JLabel li3=new JLabel("DIAGNOSIS DISEASE:");
+        li3.setForeground(Color.black);
+        li3.setBounds(16, 82, 250, 40);
+        li3.setHorizontalAlignment(JLabel.LEFT);
+        li3.setFont(new Font("sansserif",Font.BOLD, 14));
+        p3.add(li3);
+
+
+        JLabel li4=new JLabel("TREATMENT DONE BY:");
+        li4.setForeground(Color.black);
+        li4.setBounds(16, 120, 250, 40);
+        li4.setHorizontalAlignment(JLabel.LEFT);
+        li4.setFont(new Font("sansserif",Font.BOLD, 14));
+        p3.add(li4);
+
+        JPanel p4=new JPanel();
+        p4.setBounds(600,70,325,160);
+        p4.setBackground(Color.white);
+        f.add(p4);
+        p4.setLayout(null);
+        JLabel li41=new JLabel("ABOUT PREVIOUS TREATMENT:");
+        li41.setForeground(Color.black);
+        li41.setBounds(16, 7, 250, 40);
+        li41.setHorizontalAlignment(JLabel.LEFT);
+        li41.setFont(new Font("sansserif",Font.BOLD, 14));
+        p4.add(li41);
+
+        JLabel li42=new JLabel("REPORT ID:");
+        li42.setForeground(Color.black);
+        li42.setBounds(16, 44, 250, 40);
+        li42.setHorizontalAlignment(JLabel.LEFT);
+        li42.setFont(new Font("sansserif",Font.BOLD, 14));
+        p4.add(li42);
+
+        JLabel li43=new JLabel("DIAGNOSIS DISEASE:");
+        li43.setForeground(Color.black);
+        li43.setBounds(16, 82, 250, 40);
+        li43.setHorizontalAlignment(JLabel.LEFT);
+        li43.setFont(new Font("sansserif",Font.BOLD, 14));
+        p4.add(li43);
+
+        JLabel li44=new JLabel("TREATMENT DONE BY:");
+        li44.setForeground(Color.black);
+        li44.setBounds(16, 120, 250, 40);
+        li44.setHorizontalAlignment(JLabel.LEFT);
+        li44.setFont(new Font("sansserif",Font.BOLD, 14));
+        p4.add(li44);
+
         JLabel lName=new JLabel();
         lName.setBounds(900,1,200,40);
         lName.setFont(new Font("sansserif", 3, 18));
         p2.add(lName);
-        this.demail=semail;
-        this.dname=sname;
-        lName.setText("Hello,"+String.valueOf(dname));
+        this.p=sname;
+        lName.setText("Hello,"+String.valueOf(p));
         JPanel p5=new JPanel();
         p5.setBounds(940,70,325,160);
         p5.setBackground(Color.gray);
         f.add(p5);
-        p5.setLayout(null);
+        p5.setLayout(null);/*
         JLabel l41=new JLabel("TOTAL  NO  OF  PATIENT:");
         l41.setForeground(Color.black);
         l41.setBounds(16, 8, 250, 40);
@@ -154,14 +231,14 @@ public class DocDashBoard {
         b42.setFont(new Font("sansserif",Font.BOLD, 14));
         b42.setBorderPainted(false);
         b42.setFocusPainted(false);
-
+*/
         JPanel p6=new JPanel();
         p6.setBounds(940,250,325,400);
         p6.setBackground(Color.white);
         f.add(p6);
         p6.setLayout(null);
         JPanel p7=new JPanel();
-        p7.setBounds(260,70,665,580);
+        p7.setBounds(260,250,665,400);
         p7.setBackground(Color.white);
         p7.setLayout(null);
         f.add(p7);
@@ -182,7 +259,7 @@ public class DocDashBoard {
                 return comp;
             }
         };
-        Object[] columns = {"First Name","Email Id","Contact No"};
+        Object[] columns = {"Report Id","Dooctor Id","diagnosis disease","Visited Date"};
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(columns);
         jta1.setModel(model);
@@ -206,22 +283,18 @@ public class DocDashBoard {
         //jh1.setShowVerticalLines(false);
         jh1.setBackground(Color.gray);
         jh1.setFont(new Font("sansserif", 1, 12));
-        JScrollPane jsp1=new JScrollPane(jta1,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane jsp1=new JScrollPane(jta1,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         p7.add(jsp1);
         //jsp1.setBounds(10,10,50,90);
-        jsp1.setBounds(0,80,665,500);
+        jsp1.setBounds(3,80,665,320);
         jta1.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int row=jta1.rowAtPoint(e.getPoint());
 
                 int col= jta1.columnAtPoint(e.getPoint());
-                String pname=jta1.getValueAt(row,0).toString();
-                String pmail=jta1.getValueAt(row,1).toString();
 
-                AddReport ad1=new AddReport(pname,pmail,dname,demail);
-
-                //JOptionPane.showMessageDialog(null,"Name:"+ " " +jta1.getValueAt(row,0).toString()+"    Email Id:"+ " " +jta1.getValueAt(row,1).toString());
+                JOptionPane.showMessageDialog(null,"Name:"+ " " +jta1.getValueAt(row,0).toString()+"    Email Id:"+ " " +jta1.getValueAt(row,1).toString());
 
                 //System.out.println("Name:"+ " " +jta1.getValueAt(row,0).toString());
             }
@@ -247,16 +320,13 @@ public class DocDashBoard {
 
             }
         });
-
-        Object[] data11={"Sujal","sujalgandhi@gmail.com","123456789"};
-        model.addRow(data11);
-
+/*
         b40.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
             JFrame p8=new JFrame("ADD PATIENT");
 
             JLabel text1=new JLabel("FIRST NAME:");
             JLabel text2=new JLabel("EMAIL ID:");
-            JLabel text3=new JLabel("Contact no:");
+            JLabel text3=new JLabel("PATIENT STATUS:");
 
             MyTextField textFname = new MyTextField();
             MyTextField textEmail = new MyTextField();
@@ -280,7 +350,7 @@ public class DocDashBoard {
             text3.setFont(new Font("sansserif",Font.BOLD, 14));
             textFname.setHint("Enter The Name");
             textEmail.setHint("Enter the Email Id");
-            textStatus.setHint("Enter Contact no");
+            textStatus.setHint("ONGOING/COMPLETED/NEW");
             textFname.setFont(new Font("sansserif",Font.BOLD, 12));
             textEmail.setFont(new Font("sansserif",Font.BOLD, 12));
             textStatus.setFont(new Font("sansserif",Font.BOLD, 12));
@@ -340,7 +410,7 @@ public class DocDashBoard {
 
         }});
 
-        /*
+
         String[][] data = {
                 { "SHUBHAM", "shubham.yadhav@gmail.com","ongoing" },
                 {"SHUBHAM", "shubham.yadhav@gmail.com","ongoing"}
@@ -456,6 +526,6 @@ public class DocDashBoard {
 
 
     public static void main(String[] args){
-        new DocDashBoard("user","us");
+        new PatientDashBoard("SUMIL");
     }
 }

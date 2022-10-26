@@ -19,7 +19,7 @@ public class patDashBoard {
         f.add(p2);
         JPanel p3=new JPanel();
         p3.setBounds(260,70,325,160);
-        p3.setBackground(Color.white);
+        p3.setBackground(Color.red);
         f.add(p3);
         JPanel p4=new JPanel();
         p4.setBounds(600,70,325,160);

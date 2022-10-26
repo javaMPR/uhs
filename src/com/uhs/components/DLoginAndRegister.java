@@ -141,7 +141,7 @@ public class DLoginAndRegister {
         b1.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
             //LoginAndRegister lr2=new LoginAndRegister();
             String getvalueemail=txtEmail.getText();
-            DocDashBoard ddb1=new DocDashBoard(getvalueemail);
+            DocDashBoard ddb1=new DocDashBoard("Sumil",getvalueemail);
 
             f2.show();
             f2.dispose();
