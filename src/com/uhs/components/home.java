@@ -26,8 +26,8 @@ public class home implements ActionListener {
         l2.setFont(new Font("Verdana", Font.BOLD, 20));
         //f.getContentPane().setBackground(new Color(0, 191, 255));
         f.getContentPane().setBackground(new Color(3, 4,94));
-        JLabel l3=new JLabel(new ImageIcon("E:\\JavaProgramming\\uhc\\src\\com\\uhs\\images\\i1.png"));
-        l3.setBounds(560,30,181,181);
+        JLabel l3=new JLabel(new ImageIcon("C:\\Users\\Sumil\\Documents\\GitHub\\uhs\\src\\com\\uhs\\images\\i1.png"));
+        l3.setBounds(540,33,231,181);
         JButton b1 = new JButton("Admin");
         JButton b2 = new JButton("Doctor");
         JButton b3 = new JButton("Patient");

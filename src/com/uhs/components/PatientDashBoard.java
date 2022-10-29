@@ -1,7 +1,5 @@
 package com.uhs.components;
 
-
-
 import com.uhs.swing.MyTextField;
 
 import javax.swing.*;
@@ -24,6 +22,7 @@ import java.sql.ResultSet;
 
 public class PatientDashBoard {
     public String p,Dnam, Dupto, comm,descp, Dos;
+    public int count=0;
     public PatientDashBoard(){}
     public PatientDashBoard(String sname,String semail){
 
@@ -35,12 +34,12 @@ public class PatientDashBoard {
         p1.setBackground(new Color(3, 4, 94));
         f.add(p1);
         p1.setLayout(null);
-        JLabel l31=new JLabel(new ImageIcon(getClass().getResource("/com/uhs/images/i1.png")));
-        p1.add(l31);
-        l31.setBounds(15,20,50,50);
+        //JLabel l31=new JLabel(new ImageIcon(getClass().getResource("/com/uhs/images/i1.png")));
+        //p1.add(l31);
+        //l31.setBounds(15,20,50,50);
         JLabel l32=new JLabel("UHS");
         p1.add(l32);
-        l32.setBounds(70,10,150,50);
+        l32.setBounds(10,10,150,50);
         l32.setFont(new Font("sansserif", Font.BOLD, 36));
         l32.setForeground(Color.white);
         JButton b30=new JButton("   DASHBOARD");
@@ -141,24 +140,25 @@ public class PatientDashBoard {
         li1.setFont(new Font("sansserif",Font.BOLD, 14));
         p3.add(li1);
 
-        JLabel li2=new JLabel("REPORT ID:");
+        JLabel li2=new JLabel();
         li2.setForeground(Color.black);
-        li2.setBounds(16, 44, 250, 40);
+
+        li2.setBounds(16, 44, 400, 40);
         li2.setHorizontalAlignment(JLabel.LEFT);
         li2.setFont(new Font("sansserif",Font.BOLD, 14));
         p3.add(li2);
 
-        JLabel li3=new JLabel("DIAGNOSIS DISEASE:");
+        JLabel li3=new JLabel();
         li3.setForeground(Color.black);
-        li3.setBounds(16, 82, 250, 40);
+        li3.setBounds(16, 82, 400, 40);
         li3.setHorizontalAlignment(JLabel.LEFT);
         li3.setFont(new Font("sansserif",Font.BOLD, 14));
         p3.add(li3);
 
 
-        JLabel li4=new JLabel("TREATMENT DONE BY:");
+        JLabel li4=new JLabel();
         li4.setForeground(Color.black);
-        li4.setBounds(16, 120, 250, 40);
+        li4.setBounds(16, 120, 400, 40);
         li4.setHorizontalAlignment(JLabel.LEFT);
         li4.setFont(new Font("sansserif",Font.BOLD, 14));
         p3.add(li4);
@@ -175,23 +175,23 @@ public class PatientDashBoard {
         li41.setFont(new Font("sansserif",Font.BOLD, 14));
         p4.add(li41);
 
-        JLabel li42=new JLabel("REPORT ID:");
+        JLabel li42=new JLabel();
         li42.setForeground(Color.black);
-        li42.setBounds(16, 44, 250, 40);
+        li42.setBounds(16, 44, 400, 40);
         li42.setHorizontalAlignment(JLabel.LEFT);
         li42.setFont(new Font("sansserif",Font.BOLD, 14));
         p4.add(li42);
 
-        JLabel li43=new JLabel("DIAGNOSIS DISEASE:");
+        JLabel li43=new JLabel();
         li43.setForeground(Color.black);
-        li43.setBounds(16, 82, 250, 40);
+        li43.setBounds(16, 82, 400, 40);
         li43.setHorizontalAlignment(JLabel.LEFT);
         li43.setFont(new Font("sansserif",Font.BOLD, 14));
         p4.add(li43);
 
-        JLabel li44=new JLabel("TREATMENT DONE BY:");
+        JLabel li44=new JLabel();
         li44.setForeground(Color.black);
-        li44.setBounds(16, 120, 250, 40);
+        li44.setBounds(16, 120, 400, 40);
         li44.setHorizontalAlignment(JLabel.LEFT);
         li44.setFont(new Font("sansserif",Font.BOLD, 14));
         p4.add(li44);
@@ -273,14 +273,15 @@ public class PatientDashBoard {
         p7.add(jta1);
         jh1.setBounds(0,40,665,40);
 
+
         try{
             Connection c1= DriverManager.getConnection("jdbc:mysql://localhost:3306/uhs","root","Sumil399");
-            PreparedStatement pss= c1.prepareStatement("Select * from report where patientid in(select patientid from patient where patientid=?)");
+            PreparedStatement pss= c1.prepareStatement("Select * from report where patientid in(select patientid from patient where patientid=?) order by reportid desc");
             pss.setString(1,semail);
             ResultSet rss= pss.executeQuery();
             Object[] row = new Object[4];
             while(rss.next()){
-
+                count++;
                 row[0]=rss.getString("reportid");
                 row[1]=rss.getString("doctorID");
                 row[2]=rss.getString("disease");
@@ -368,6 +369,91 @@ public class PatientDashBoard {
 
             }
         });
+
+        if(count==0)
+        {
+            li2.setText("REPORT ID: ");
+
+            li3.setText("DIAGNOSIS DISEASE: ");
+
+            li4.setText("TREATMENT DONE BY: ");
+
+            li42.setText("REPORT ID:");
+
+            li43.setText("DIAGNOSIS DISEASE: ");
+
+            li44.setText("TREATMENT DONE BY: ");
+        }
+        else if(count==1) {
+            String tab21=jta1.getValueAt(0,0).toString();
+            li2.setText("REPORT ID: "+String.valueOf(tab21));
+
+            String tab22=jta1.getValueAt(0,2).toString();
+            li3.setText("DIAGNOSIS DISEASE: "+String.valueOf(tab22));
+
+            String tab23=jta1.getValueAt(0,1).toString();
+            li4.setText("TREATMENT DONE BY: "+String.valueOf(tab23));
+
+            li42.setText("REPORT ID:");
+
+            li43.setText("DIAGNOSIS DISEASE: ");
+
+            li44.setText("TREATMENT DONE BY: ");
+        }
+        else {
+            String tab21=jta1.getValueAt(0,0).toString();
+            li2.setText("REPORT ID: "+String.valueOf(tab21));
+
+            String tab22=jta1.getValueAt(0,2).toString();
+            li3.setText("DIAGNOSIS DISEASE: "+String.valueOf(tab22));
+
+            String tab23=jta1.getValueAt(0,1).toString();
+            li4.setText("TREATMENT DONE BY: "+String.valueOf(tab23));
+
+            String tab24=jta1.getValueAt(1,0).toString();
+            li42.setText("REPORT ID:"+String.valueOf(tab24));
+
+            String tab25=jta1.getValueAt(1,2).toString();
+            li43.setText("DIAGNOSIS DISEASE: "+String.valueOf(tab25));
+
+            String tab26=jta1.getValueAt(1,1).toString();
+            li44.setText("TREATMENT DONE BY: "+String.valueOf(tab26));
+        }
+       /* if((tab21.equals(null)){
+            li2.setText("REPORT ID: ");
+
+            String tab22=jta1.getValueAt(0,2).toString();
+            li3.setText("DIAGNOSIS DISEASE: ");
+
+            String tab23=jta1.getValueAt(0,1).toString();
+            li4.setText("TREATMENT DONE BY: ");
+
+            String tab24=jta1.getValueAt(1,0).toString();
+            li42.setText("REPORT ID:");
+
+            String tab25=jta1.getValueAt(1,2).toString();
+            li43.setText("DIAGNOSIS DISEASE: ");
+
+            String tab26=jta1.getValueAt(1,1).toString();
+            li44.setText("TREATMENT DONE BY: ");
+        }
+
+            li2.setText("REPORT ID: "+String.valueOf(tab21));
+
+            String tab22=jta1.getValueAt(0,2).toString();
+            li3.setText("DIAGNOSIS DISEASE: "+String.valueOf(tab22));
+
+            String tab23=jta1.getValueAt(0,1).toString();
+            li4.setText("TREATMENT DONE BY: "+String.valueOf(tab23));
+
+            String tab24=jta1.getValueAt(1,0).toString();
+            li42.setText("REPORT ID:"+String.valueOf(tab24));
+
+            String tab25=jta1.getValueAt(1,2).toString();
+            li43.setText("DIAGNOSIS DISEASE: "+String.valueOf(tab25));
+
+            String tab26=jta1.getValueAt(1,1).toString();
+            li44.setText("TREATMENT DONE BY: "+String.valueOf(tab26));*/
 /*
         b40.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
             JFrame p8=new JFrame("ADD PATIENT");
@@ -541,10 +627,10 @@ public class PatientDashBoard {
         //jsp1.setBounds(10,10,50,90);
         jsp1.setBounds(0,80,665,500);
 */
-        JTextArea ta2=new JTextArea("                 huhu:"+System.getProperty("line.separator")+"    vgvgvhvm");
+        JTextArea ta2=new JTextArea(" Conjunctivitis, also known as pinkeye, is an inflammation of the "+System.getProperty("line.separator")+" conjunctiva.The conjunctiva is the thin "+System.getProperty("line.separator")+"  clear tissue that lies over the white part "+System.getProperty("line.separator")+" of the eye and lines the inside of the eyelid"+System.getProperty("line.separator")+System.getProperty("line.separator"));
         p6.add(ta2);
         ta2.setEditable(false);
-        ta2.setFont(new Font("sansserif", 1, 12));
+        ta2.setFont(new Font("sansserif", Font.BOLD, 14));
 
         //ta2.setBounds(30,20,105,200);
         //ta2.setBackground(Color.BLACK);

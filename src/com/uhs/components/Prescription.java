@@ -17,7 +17,7 @@ public class Prescription {
 
          JFrame f=new JFrame("Universal Healthcare System");
          JPanel p=new JPanel();
-         JLabel l1=new JLabel("U.H.S");
+         JLabel l1=new JLabel("Universal Healthcare System");
          JLabel rid=new JLabel();
          JLabel pid=new JLabel();
          JLabel pname=new JLabel();
@@ -119,7 +119,7 @@ public class Prescription {
 
          JButton clobtn=new JButton("Close The File");
          p.add(clobtn);
-         clobtn.setBounds(550,540,250,40);
+         clobtn.setBounds(480,540,250,40);
          clobtn.setFont(new Font("Vardana", Font.BOLD, 18));
          clobtn.setFocusPainted(false);
          clobtn.setBorderPainted(false);
@@ -132,8 +132,9 @@ public class Prescription {
 
 
 
-         l1.setFont(new Font("Vardana", Font.ITALIC, 24));
-         l1.setBounds(50,5,150,40);
+         l1.setFont(new Font("Vardana", Font.BOLD, 24));
+         l1.setBounds(450,5,500,40);
+         l1.setForeground(Color.white);
          f.add(l1);
          p.setBackground(Color.white);
          p.setBounds(10,50,1265,600);

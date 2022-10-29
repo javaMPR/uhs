@@ -35,13 +35,13 @@ public class DocDashBoard {
         p1.setBackground(new Color(3, 4, 94));
         f.add(p1);
         p1.setLayout(null);
-        JLabel l31=new JLabel(new ImageIcon(getClass().getResource("/com/uhs/images/i1.png")));
-        p1.add(l31);
-        l31.setBounds(15,20,50,50);
-        JLabel l32=new JLabel("U.H.S");
+        //JLabel l31=new JLabel(new ImageIcon("C:\\Users\\Sumil\\Download\\i12.png"));
+        //p1.add(l31);
+        //l31.setBounds(15,20,50,50);
+        JLabel l32=new JLabel("UHS");
         p1.add(l32);
-        l32.setBounds(70,10,150,50);
-        l32.setFont(new Font("sansserif", Font.ITALIC, 36));
+        l32.setBounds(10,10,150,50);
+        l32.setFont(new Font("sansserif", Font.BOLD, 36));
         l32.setForeground(Color.white);
         JButton b30=new JButton("   DASHBOARD");
         JButton b31=new JButton("   SEARCH DOCTOR");
@@ -293,7 +293,7 @@ public class DocDashBoard {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String username=textEmail.getText();
+                    String username=textEmail.getText().trim();
 
                     try{
                         Connection c= DriverManager.getConnection("jdbc:mysql://localhost:3306/uhs","root","Sumil399");
@@ -551,7 +551,7 @@ public class DocDashBoard {
         //jsp1.setBounds(10,10,50,90);
         jsp1.setBounds(0,80,665,500);
 */
-        JTextArea ta2=new JTextArea("                 huhu:"+System.getProperty("line.separator")+"    vgvgvhvm");
+        JTextArea ta2=new JTextArea("   Conjunctivitis, also known as pinkeye, is an "+System.getProperty("line.separator")+"   inflammation of the conjunctiva.The conjunctiva  "+System.getProperty("line.separator")+"   is the thin  clear tissue that lies over the white part "+System.getProperty("line.separator")+"   of the eye and lines the inside of the eyelid"+System.getProperty("line.separator")+System.getProperty("line.separator"));
         p6.add(ta2);
         ta2.setEditable(false);
         ta2.setFont(new Font("sansserif", 1, 12));

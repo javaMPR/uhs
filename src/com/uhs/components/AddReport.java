@@ -173,6 +173,13 @@ public class AddReport{
         d1.setFont(new Font("sansserif", 2, 16));
         frame.add(tdoses);
 
+        JFileChooser fc1=new JFileChooser();
+        frame.add(fc1);
+        fc1.setBackground(Color.WHITE);
+        fc1.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        //fc1.setForeground(Color.white);
+        fc1.setBounds(10,510,600,40);
+
         frame.add(btnAdd);
         btnAdd.setBounds(858, 325, 100, 25);
         JButton btnDelete = new JButton("Clear");
