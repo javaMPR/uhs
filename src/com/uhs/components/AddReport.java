@@ -4,10 +4,7 @@ import com.uhs.swing.MyTextArea;
 import com.uhs.swing.MyTextField;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -145,14 +142,14 @@ public class AddReport{
         frame.add(Drec);
         tDrec.setBounds(570,280,200,40);
         tDrec.setFont(new Font("sansserif", 1, 14));
-        tDrec.setHint("DD-MM-YYYY");
+        tDrec.setHint(" DD/MM/YYYY");
         frame.add(tDrec);
         Dupto.setBounds(440,360,180,40);
         Dupto.setFont(new Font("sansserif", 2, 16));
         frame.add(Dupto);
         tDupto.setBounds(570,360,200,40);
         tDupto.setFont(new Font("sansserif", 1, 14));
-        tDupto.setHint("DD-MM-YYYY");
+        tDupto.setHint(" DD/MM/YYYY");
         frame.add(tDupto);
         description.setBounds(5,410,120,40);
         description.setFont(new Font("sansserif", 2, 16));
@@ -181,9 +178,9 @@ public class AddReport{
         fc1.setBounds(10,510,600,40);
 
         frame.add(btnAdd);
-        btnAdd.setBounds(858, 325, 100, 25);
+        btnAdd.setBounds(840, 295, 150, 35);
         JButton btnDelete = new JButton("Clear");
-        btnDelete.setBounds(858,380,100,25);
+        btnDelete.setBounds(840,370,150,35);
         frame.add(btnDelete);
         btnDelete.setBorderPainted(false);
         btnDelete.setFocusPainted(false);
@@ -194,6 +191,233 @@ public class AddReport{
         Object[] r00001={"R00001","Flue","Shubhum","shubhum123@hotmail.com","10-10-2022","29-10-2022","Xray of L2","Dolo350,crocin","3"};
         model.addRow(r00001);
 
+        tDrec.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent EVT) {
+                String value = tDrec.getText();
+                int l = value.length();
+                if ((EVT.getKeyChar() >= '0' && EVT.getKeyChar() <= '9' && (l<=9)) || EVT.getKeyCode()==KeyEvent.VK_BACK_SPACE) {
+                    tDrec.setEditable(true);
+                    /*if(l==2){
+                        String d1=t13.getText();
+                        t13.setText(d1+"/");
+                        if(value.charAt(0)>'3'||value.charAt(1)>'9'){
+                            t13.setText("");
+                        }
+                    }*/
+                    if(l==2) {
+                        String d1 = tDrec.getText();
+                        if (value.charAt(0) == '3') {
+                            if (value.charAt(1) <= '1') {
+                                tDrec.setText(d1 + "/");
+                            } else {
+                                tDrec.setText("");
+                                JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                            }
+                        } else if (value.charAt(0) == '0') {
+                            if (value.charAt(1) <= '9') {
+                                tDrec.setText(d1 + "/");
+                            } else {
+                                tDrec.setText("");
+                                JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                            }
+                        } else if (value.charAt(0) == '1') {
+                            if (value.charAt(1) <= '9') {
+                                tDrec.setText(d1 + "/");
+                            } else {
+                                tDrec.setText("");
+                                JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                            }
+                        } else if (value.charAt(0) == '2') {
+                            if (value.charAt(1) <= '9') {
+                                tDrec.setText(d1 + "/");
+                            } else {
+                                tDrec.setText("");
+                                JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                            }
+                        } else {
+                            tDrec.setText("");
+                            JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                        }
+                    }
+                    if(l==5){
+                        String d1=tDrec.getText();
+                        if(value.charAt(3)=='1'){
+                            if(value.charAt(4)<='2'){
+                                tDrec.setText(d1+"/");
+                            }
+                            else {
+                                tDrec.setText("");
+                                JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                            }
+                        }
+                        else if(value.charAt(3)=='0'){
+                            if(value.charAt(4)<='9'){
+                                tDrec.setText(d1+"/");
+                            } else {
+                                tDrec.setText("");
+                                JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                            }
+                        }
+                        else{
+                            tDrec.setText("");
+                            JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                        }
+                    }
+                    if(l==9){
+                        String d1=tDrec.getText();
+                        if(value.charAt(6)=='2'){
+                            if(value.charAt(7)!='0'){
+                                tDrec.setText("");
+                                JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                            }
+                            else {
+                                tDrec.setText(String.valueOf(d1));
+                            }
+                        }
+                        else if(value.charAt(6)>'2'){
+                            tDrec.setText("");
+                            JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                        }
+                    }
+                }
+                else {
+                    tDrec.setEditable(false);
+                }
+            }
+        });
+
+        tDrec.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent EVT) {
+                if(EVT.getKeyCode()==KeyEvent.VK_BACK_SPACE){
+                    tDrec.setText("");
+                }}});
+
+        tDupto.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent EVT) {
+                String value = tDupto.getText();
+                int l = value.length();
+                if ((EVT.getKeyChar() >= '0' && EVT.getKeyChar() <= '9' && (l<=9)) || EVT.getKeyCode()==KeyEvent.VK_BACK_SPACE) {
+                    tDupto.setEditable(true);
+                    if(l==2) {
+                        String d1 = tDupto.getText();
+                        if (value.charAt(0) == '3') {
+                            if (value.charAt(1) <= '1') {
+                                tDupto.setText(d1 + "/");
+                            } else {
+                                tDupto.setText("");
+                                JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                            }
+                        } else if (value.charAt(0) == '0') {
+                            if (value.charAt(1) <= '9') {
+                                tDupto.setText(d1 + "/");
+                            } else {
+                                tDupto.setText("");
+                                JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                            }
+                        } else if (value.charAt(0) == '1') {
+                            if (value.charAt(1) <= '9') {
+                                tDupto.setText(d1 + "/");
+                            } else {
+                                tDupto.setText("");
+                                JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                            }
+                        } else if (value.charAt(0) == '2') {
+                            if (value.charAt(1) <= '9') {
+                                tDupto.setText(d1 + "/");
+                            } else {
+                                tDupto.setText("");
+                                JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                            }
+                        } else {
+                            tDupto.setText("");
+                            JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                        }
+                    }
+                    if(l==5){
+                        String d1=tDupto.getText();
+                        if(value.charAt(3)=='1'){
+                            if(value.charAt(4)<='2'){
+                                tDupto.setText(d1+"/");
+                            }
+                            else {
+                                tDupto.setText("");
+                                JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                            }
+                        }
+                        else if(value.charAt(3)=='0'){
+                            if(value.charAt(4)<='9'){
+                                tDupto.setText(d1+"/");
+                            } else {
+                                tDupto.setText("");
+                                JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                            }
+                        }
+                        else{
+                            tDupto.setText("");
+                            JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                        }
+                    }
+                    if(l==9){
+                        String d1=tDupto.getText();
+                        if(value.charAt(6)=='2'){
+                            if(value.charAt(7)!='0'){
+                                tDupto.setText("");
+                                JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                            }
+                            else {
+                                tDupto.setText(String.valueOf(d1));
+                            }
+                        }
+                        else if(value.charAt(6)>'2'){
+                            tDupto.setText("");
+                            JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                        }
+                    }
+                }
+                else {
+                    tDupto.setEditable(false);
+                }
+            }
+        });
+
+        tDupto.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent EVT) {
+                if(EVT.getKeyCode()==KeyEvent.VK_BACK_SPACE){
+                    tDupto.setText("");
+                }}});
+        JButton btngen=new JButton("Generate report id");
+        btngen.setBounds(840,445,150,35);
+        frame.add(btngen);
+        btngen.setBorderPainted(false);
+        btngen.setFocusPainted(false);
+        btngen.setBackground(new Color(200,240,247));
+        trid.setEditable(false);
+        btngen.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
+            int record;
+            try{
+                Connection c= DriverManager.getConnection("jdbc:mysql://localhost:3306/uhs","root","Sumil399");
+                String qu="Select count(reportid)+1 from report";
+                PreparedStatement ps= c.prepareStatement(qu);
+                ResultSet rs= ps.executeQuery();
+                if(rs.next()){
+                    record =rs.getInt(1);
+                    if(record<10){
+                        trid.setText("R0000"+String.valueOf(record));
+                    }
+                    else if((record<100)&&(record>9)){
+                        trid.setText("R000"+String.valueOf(record));
+                    }
+                    else {
+                        trid.setText("R000"+String.valueOf(record));
+                    }
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,"Some Error occur");
+                }
+            }catch(Exception e1){
+                e1.printStackTrace();
+            }
+        }});
 
         // button add row
         btnAdd.addActionListener(new ActionListener(){
@@ -211,22 +435,27 @@ public class AddReport{
                 String t9 = tdoses.getText();
                 String t10="";
                 String t11=dnam;
-                try{
-                    Connection c1= DriverManager.getConnection("jdbc:mysql://localhost:3306/uhs","root","Sumil399");
-                    String qu1= "insert into report values(?,?,?,?,?,?,?,?,?,?,?)";
-                    PreparedStatement pst = c1.prepareStatement(qu1);
-                    pst.setString(1,t1);
-                    pst.setString(2,t2);
-                    pst.setString(3,t3);
-                    pst.setString(4,t4);
-                    pst.setString(5,t5);
-                    pst.setString(6,t6);
-                    pst.setString(7,t7);
-                    pst.setString(8,t8);
-                    pst.setString(9,t9);
-                    pst.setString(10,t10);
-                    pst.setString(11,t11);
-                    pst.executeUpdate();
+                if(t4.isEmpty()||t5.isEmpty()||t6.isEmpty()||t7.isEmpty()||t8.isEmpty()||t9.isEmpty())
+                {
+                    JOptionPane.showMessageDialog(null,"It appears that some information is missing.");
+                }
+                else {
+                    try {
+                        Connection c1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/uhs", "root", "Sumil399");
+                        String qu1 = "insert into report values(?,?,?,?,?,?,?,?,?,?,?)";
+                        PreparedStatement pst = c1.prepareStatement(qu1);
+                        pst.setString(1, t1);
+                        pst.setString(2, t2);
+                        pst.setString(3, t3);
+                        pst.setString(4, t4);
+                        pst.setString(5, t5);
+                        pst.setString(6, t6);
+                        pst.setString(7, t7);
+                        pst.setString(8, t8);
+                        pst.setString(9, t9);
+                        pst.setString(10, t10);
+                        pst.setString(11, t11);
+                        pst.executeUpdate();
                     /*String dnmed="";
                     try {
                         Connection c11 = DriverManager.getConnection("jdbc:mysql://localhost:3306/uhs", "root", "Sumil399");
@@ -242,25 +471,26 @@ public class AddReport{
                     }catch (Exception e1){
                         e1.printStackTrace();
                     }*/
-                    row[0] = trid.getText();
-                    row[1] = tdisease.getText();
-                    row[2] = dnam;
-                    row[3] = dmal;
-                    row[4] = tDrec.getText();
-                    row[5] = tDupto.getText();
-                    row[6] = tdescription.getText();
-                    row[7] = tdescp.getText();
-                    row[8] = tdoses.getText();
+                        row[0] = trid.getText();
+                        row[1] = tdisease.getText();
+                        row[2] = dnam;
+                        row[3] = dmal;
+                        row[4] = tDrec.getText();
+                        row[5] = tDupto.getText();
+                        row[6] = tdescription.getText();
+                        row[7] = tdescp.getText();
+                        row[8] = tdoses.getText();
 
 
-                    // add row to the model
-                    model.addRow(row);
-                    JOptionPane.showMessageDialog(null,"Data Added Successfully");
+                        // add row to the model
+                        model.addRow(row);
+                        JOptionPane.showMessageDialog(null, "Data Added Successfully");
 
-                }catch (Exception e1){
-                    e1.printStackTrace();
+
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
                 }
-
             }
         });
         btnDelete.addActionListener(new ActionListener(){

@@ -1,7 +1,10 @@
 package com.uhs.components;
 
+import com.uhs.swing.EmailValidator;
+import com.uhs.swing.MyPasswordField;
 import com.uhs.swing.MyTextField;
 
+import javax.management.Query;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -19,6 +22,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Queue;
 
 public class PatientDashBoard {
     public String p,Dnam, Dupto, comm,descp, Dos;
@@ -55,6 +59,8 @@ public class PatientDashBoard {
         p1.add(b35);
         p1.add(b34);
 
+
+
         b31.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
             NewViewP np1=new NewViewP(semail);
 
@@ -63,10 +69,230 @@ public class PatientDashBoard {
             NewEditP np2=new NewEditP(semail);
 
         }});
+        b33.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
+            JFrame p8=new JFrame("CHANGE PASSWORD");
+
+            JLabel text1=new JLabel("EMAIL ID:");
+            JLabel text2=new JLabel("PASSWORD:");
+            JLabel text3=new JLabel("NEW PASSWORD: ");
+
+            MyTextField textEmail = new MyTextField();
+            MyPasswordField textPass = new MyPasswordField();
+            MyPasswordField textnewpass =new MyPasswordField();
+
+            JButton btnAdd = new JButton("UPDATE");
+            JButton btnDelete = new JButton("CLEAR");
+
+            text1.setBounds(20, 20, 100, 40);
+            text2.setBounds(20, 70, 500, 40);
+            text3.setBounds(20, 120, 500, 40);
+            text1.setFont(new Font("sansserif",Font.BOLD, 14));
+            text2.setFont(new Font("sansserif",Font.BOLD, 14));
+            text3.setFont(new Font("sansserif",Font.BOLD, 14));
+
+            textEmail.setBounds(160, 20, 200, 35);
+            textPass.setBounds(160, 70, 200, 35);
+            textnewpass.setBounds(160, 120, 200, 35);
+            text1.setFont(new Font("sansserif",Font.BOLD, 14));
+            text2.setFont(new Font("sansserif",Font.BOLD, 14));
+            text3.setFont(new Font("sansserif",Font.BOLD, 14));
+            textEmail.setHint("Enter The Email Id");
+            textPass.setHint("Enter Current Password");
+            textnewpass.setHint("Enter New Password");
+            textPass.setFont(new Font("sansserif",Font.BOLD, 12));
+            textEmail.setFont(new Font("sansserif",Font.BOLD, 12));
+            textnewpass.setFont(new Font("sansserif",Font.BOLD, 12));
+
+            btnAdd.setFocusPainted(false);
+            btnAdd.setBorderPainted(false);
+            btnDelete.setFocusPainted(false);
+            btnDelete.setBorderPainted(false);
+
+            btnAdd.setBounds(80, 180, 100, 25);
+            btnDelete.setBounds(190, 180, 100, 25);
+
+            p8.add(text1);
+            p8.add(text2);
+            p8.add(text3);
+            p8.add(textPass);
+            p8.add(textEmail);
+            p8.add(textnewpass);
+            p8.add(btnAdd);
+            p8.add(btnDelete);
+
+
+
+
+            btnAdd.addActionListener(new ActionListener(){
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String username1 = "";
+                    if(semail.equals(textEmail.getText())){
+                    username1=textEmail.getText();}
+                    String passp1=textPass.getText();
+                    String passp2=textnewpass.getText();
+                    if(username1.isEmpty()||passp1.isEmpty()||passp2.isEmpty()){
+                        JOptionPane.showMessageDialog(null,"Enter Valid Details");
+                    }
+                    else{
+                        EmailValidator emailValidator = new EmailValidator();
+                        if(!emailValidator.validate(textEmail.getText().trim())) {
+                            JOptionPane.showMessageDialog(null,"Enter a Valid Email Address");
+                            return;
+                        }/*
+                        try{
+                            Connection c= DriverManager.getConnection("jdbc:mysql://localhost:3306/uhs","root","Sumil399");
+
+
+                            String qu="update patient set passwordp=? where patientid=? and passwordp=?";
+                            PreparedStatement ps= c.prepareStatement(qu);
+                            ps.setString(1,passp2);
+                            ps.setString(2,username1);
+                            ps.setString(3,passp1);
+                            ps.executeUpdate(qu);
+                            ResultSet rs= ps.executeQuery();
+
+                            if(rs.next()){
+                                JOptionPane.showMessageDialog(null,"Password Updated Succesfully");
+                            }
+                            else{
+                                JOptionPane.showMessageDialog(null,"Email ID or password does not matches");
+                            }
+                        }catch(Exception e1){
+                            e1.printStackTrace();
+                        }*/
+                    }
+
+
+                }
+            });
+
+            btnDelete.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    textPass.setText("");
+                    textEmail.setText("");
+                    textnewpass.setText("");
+                }
+            });
+
+            p8.setBackground(Color.black);
+            p8.setSize(400, 300);
+            p8.setLocationRelativeTo(null);
+            //p8.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            p8.setLayout(null);
+            p8.setVisible(true);
+
+        }});
         b34.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
             home h3=new home();
             f.show();
             f.dispose();
+
+        }});
+        b35.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
+            JFrame p8=new JFrame("SEARCH DOCTOR");
+
+            JLabel text1=new JLabel("EMAIL ID:");
+            JLabel text2=new JLabel();
+            JLabel text3=new JLabel();
+
+            MyTextField textEmail = new MyTextField();
+            //MyTextField textEmail = new MyTextField();
+            //MyTextField textStatus =new MyTextField();
+
+            JButton btnAdd = new JButton("Search");
+            JButton btnDelete = new JButton("Clear");
+
+            text1.setBounds(20, 20, 100, 40);
+            text2.setBounds(20, 70, 500, 40);
+            text3.setBounds(20, 120, 500, 40);
+            text1.setFont(new Font("sansserif",Font.BOLD, 14));
+            text2.setFont(new Font("sansserif",Font.BOLD, 14));
+            text3.setFont(new Font("sansserif",Font.BOLD, 14));
+            text2.setText("Doctor Name:");
+            text3.setText("Doctor Contact No:");
+
+            textEmail.setBounds(100, 20, 200, 35);
+            //textEmail.setBounds(160, 70, 200, 35);
+            //textStatus.setBounds(160, 120, 200, 35);
+            text1.setFont(new Font("sansserif",Font.BOLD, 14));
+            text2.setFont(new Font("sansserif",Font.BOLD, 14));
+            text3.setFont(new Font("sansserif",Font.BOLD, 14));
+            textEmail.setHint("Enter The Email Id");
+            //textEmail.setHint("Enter the Email Id");
+            //textStatus.setHint("Enter Contact no");
+            //textFname.setFont(new Font("sansserif",Font.BOLD, 12));
+            textEmail.setFont(new Font("sansserif",Font.BOLD, 12));
+            //textStatus.setFont(new Font("sansserif",Font.BOLD, 12));
+
+            btnAdd.setFocusPainted(false);
+            btnAdd.setBorderPainted(false);
+            btnDelete.setFocusPainted(false);
+            btnDelete.setBorderPainted(false);
+
+            btnAdd.setBounds(80, 180, 100, 25);
+            btnDelete.setBounds(190, 180, 100, 25);
+
+            p8.add(text1);
+            p8.add(text2);
+            p8.add(text3);
+            //p8.add(textFname);
+            p8.add(textEmail);
+            //p8.add(textStatus);
+            p8.add(btnAdd);
+            p8.add(btnDelete);
+
+
+
+
+            btnAdd.addActionListener(new ActionListener(){
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String username1=textEmail.getText();
+
+                    try{
+                        Connection c= DriverManager.getConnection("jdbc:mysql://localhost:3306/uhs","root","Sumil399");
+                        String qu="Select * from doctor where doctorID=?";
+                        PreparedStatement ps= c.prepareStatement(qu);
+                        ps.setString(1,username1);
+                        ResultSet rs= ps.executeQuery();
+
+                        if(rs.next()){
+                            String fnme=rs.getString("fnamed");
+                            String lnme=rs.getString("lnamed");
+                            String phne=rs.getString("phoned");
+                            text2.setText("Doctor Name: "+String.valueOf(fnme)+" "+String.valueOf(lnme));
+                            text3.setText("Doctor Contact No: "+String.valueOf(phne));
+
+                            p8.setVisible(true);
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(null,"Enter Valid Doctor Email Id");
+                        }
+                    }catch(Exception e1){
+                        e1.printStackTrace();
+                    }
+                }
+            });
+
+            btnDelete.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    text2.setText("Doctor Name:");
+                    textEmail.setText("");
+                    text3.setText("Doctor Contact No:");
+                }
+            });
+
+            p8.setBackground(Color.black);
+            p8.setSize(400, 300);
+            p8.setLocationRelativeTo(null);
+            //p8.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            p8.setLayout(null);
+            p8.setVisible(true);
 
         }});
 
@@ -627,7 +853,7 @@ public class PatientDashBoard {
         //jsp1.setBounds(10,10,50,90);
         jsp1.setBounds(0,80,665,500);
 */
-        JTextArea ta2=new JTextArea(" Conjunctivitis, also known as pinkeye, is an inflammation of the "+System.getProperty("line.separator")+" conjunctiva.The conjunctiva is the thin "+System.getProperty("line.separator")+"  clear tissue that lies over the white part "+System.getProperty("line.separator")+" of the eye and lines the inside of the eyelid"+System.getProperty("line.separator")+System.getProperty("line.separator"));
+        JTextArea ta2=new JTextArea(" Conjunctivitis, also known as pinkeye, is an inflammation of the "+System.getProperty("line.separator")+" conjunctiva.The conjunctiva is the thin "+System.getProperty("line.separator")+"  clear tissue that lies over the white part "+System.getProperty("line.separator")+" of the eye and lines the inside of the eyelid"+System.getProperty("line.separator")+"---------------");
         p6.add(ta2);
         ta2.setEditable(false);
         ta2.setFont(new Font("sansserif", Font.BOLD, 14));

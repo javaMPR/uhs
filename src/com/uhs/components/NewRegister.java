@@ -1,5 +1,6 @@
 package com.uhs.components;
 
+import com.uhs.swing.EmailValidator;
 import com.uhs.swing.MyPasswordField;
 import com.uhs.swing.MyTextArea;
 import com.uhs.swing.MyTextField;
@@ -9,10 +10,7 @@ import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicBorders;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -20,7 +18,8 @@ import java.util.Date;
 import javax.swing.border.*;
 
 public class NewRegister  {
-    public NewRegister(){
+    public NewRegister(){}
+    public NewRegister(String pnme,String pm){
         JFrame f=new JFrame("Universal Healthcare System");
         JLabel l1=new JLabel("REGISTRATION DETAILS");
         l1.setBounds(500,15,300,30);
@@ -37,6 +36,8 @@ public class NewRegister  {
         t2.setFont(new Font("Vardana",1,14));
         t2.setBounds(150,20,250,40);
         t2.setHint("First Name");
+        String jkl=pnme;
+        t2.setText(String.valueOf(jkl));
         p.add(t2);
         JLabel l3=new JLabel("MIDDLE NAME:");
         l3.setFont(new Font("Vardana", 1, 16));
@@ -150,7 +151,8 @@ public class NewRegister  {
         MyTextField t12=new MyTextField();
         t12.setFont(new Font("Vardana",1,14));
         t12.setBounds(730,235,200,40);
-        t12.setHint("Email Address");
+        //t12.setHint("Email Address");
+        t12.setText(pm);
         p.add(t12);
         JLabel l13=new JLabel("D.O.B:");
         l13.setFont(new Font("Vardana", Font.BOLD, 16));
@@ -160,7 +162,7 @@ public class NewRegister  {
         MyTextField t13=new MyTextField();
         t13.setFont(new Font("Vardana",1,14));
         t13.setBounds(1010,235,190,40);
-        t13.setHint("-Date-Of-Birth-");
+        t13.setHint(" DD/MM/YYYY ");
         p.add(t13);
         JLabel l21=new JLabel("EMERGENCY PERSON DETAILS:");
         l21.setFont(new Font("Vardana", Font.BOLD, 16));
@@ -243,22 +245,46 @@ public class NewRegister  {
         JButton b = new JButton("REGISTER");
         b.setForeground(Color.white);
         b.setBackground(new Color(3, 4,94));
-        b.setBounds(520, 520, 200, 35);
+        b.setBounds(400, 520, 200, 35);
         b.setFont(new Font("Verdana",Font.BOLD, 14));
         b.setBorderPainted(false);
         b.setFocusPainted(false);
         b.setEnabled(false);
         p.add(b);
 
+        JButton b3 = new JButton("CLOSE");
+        b3.setForeground(Color.white);
+        b3.setBackground(new Color(3, 4,94));
+        b3.setBounds(630, 520, 200, 35);
+        b3.setFont(new Font("Verdana",Font.BOLD, 14));
+        b3.setBorderPainted(false);
+        b3.setFocusPainted(false);
+        //b3.setEnabled(false);
+        p.add(b3);
+
+        b3.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
+            PLoginAndRegister dl=new PLoginAndRegister();
+            f.show();
+            f.dispose();
+        }});
+
         b.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
             String pass=String.valueOf(t31.getPassword());
             String cpass=String.valueOf(t52.getPassword());
             if(pass.equals(cpass)){
-                if (pass.isEmpty()||cpass.isEmpty())
+                if(t11.getText().isEmpty()||t12.getText().isEmpty()||t8.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null,"It appears that some information is missing.");
+                }
+                else if (pass.isEmpty()||cpass.isEmpty())
                 {
-                    JOptionPane.showMessageDialog(null,"Password or Confirm Password not entered ");
+                    JOptionPane.showMessageDialog(null,"Password or Confirm Password Has not been entered");
                 }
                 else {
+                    EmailValidator emailValidator = new EmailValidator();
+                    if(!emailValidator.validate(t12.getText().trim())) {
+                        JOptionPane.showMessageDialog(null,"Enter a Valid Email Address");
+                        return;
+                    }
 
                     String fnamepat = t2.getText();
                     String mnamepat =t3.getText();
@@ -341,6 +367,133 @@ public class NewRegister  {
             }
         });
 
+        t8.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent EVT) {
+                String value = t8.getText();
+                int l = value.length();
+                if ((EVT.getKeyChar() >= '0' && EVT.getKeyChar() <= '9' && (l<=5)) || EVT.getKeyCode()==KeyEvent.VK_BACK_SPACE) {
+                    t8.setEditable(true);
+                }
+                else {
+                    t8.setEditable(false);
+                }
+            }
+        });
+        t13.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent EVT) {
+                String value = t13.getText();
+                int l = value.length();
+                if ((EVT.getKeyChar() >= '0' && EVT.getKeyChar() <= '9' && (l<=9)) || EVT.getKeyCode()==KeyEvent.VK_BACK_SPACE) {
+                    t13.setEditable(true);
+                    /*if(l==2){
+                        String d1=t13.getText();
+                        t13.setText(d1+"/");
+                        if(value.charAt(0)>'3'||value.charAt(1)>'9'){
+                            t13.setText("");
+                        }
+                    }*/
+                    if(l==2) {
+                        String d1 = t13.getText();
+                        if (value.charAt(0) == '3') {
+                            if (value.charAt(1) <= '1') {
+                                t13.setText(d1 + "/");
+                            } else {
+                                t13.setText("");
+                                JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                            }
+                        } else if (value.charAt(0) == '0') {
+                            if (value.charAt(1) <= '9') {
+                                t13.setText(d1 + "/");
+                            } else {
+                                t13.setText("");
+                                JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                            }
+                        } else if (value.charAt(0) == '1') {
+                            if (value.charAt(1) <= '9') {
+                                t13.setText(d1 + "/");
+                            } else {
+                                t13.setText("");
+                                JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                            }
+                        } else if (value.charAt(0) == '2') {
+                            if (value.charAt(1) <= '9') {
+                                t13.setText(d1 + "/");
+                            } else {
+                                t13.setText("");
+                                JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                            }
+                        } else {
+                            t13.setText("");
+                            JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                        }
+                    }
+                    if(l==5){
+                        String d1=t13.getText();
+                        if(value.charAt(3)=='1'){
+                            if(value.charAt(4)<='2'){
+                                t13.setText(d1+"/");
+                            }
+                            else {
+                                t13.setText("");
+                                JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                            }
+                        }
+                        else if(value.charAt(3)=='0'){
+                            if(value.charAt(4)<='9'){
+                                t13.setText(d1+"/");
+                            } else {
+                                t13.setText("");
+                                JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                            }
+                        }
+                        else{
+                            t13.setText("");
+                            JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                        }
+                    }
+                    if(l==9){
+                        String d1=t13.getText();
+                        if(value.charAt(6)=='2'){
+                            if(value.charAt(7)!='0'){
+                                t13.setText("");
+                                JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                            }
+                            else {
+                                t13.setText(String.valueOf(d1));
+                            }
+                        }
+                        else if(value.charAt(6)>'2'){
+                            t13.setText("");
+                            JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                        }
+                    }
+                }
+                else {
+                    t13.setEditable(false);
+                }
+            }
+        });
+
+        t13.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent EVT) {
+                if(EVT.getKeyCode()==KeyEvent.VK_BACK_SPACE){
+                    t13.setText("");
+        }}});
+        t11.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent EVT) {
+                String value = t11.getText();
+                int l = value.length();
+                if ((EVT.getKeyChar() >= '0' && EVT.getKeyChar() <= '9' && (l<=9)) || EVT.getKeyCode()==KeyEvent.VK_BACK_SPACE) {
+                  t11.setEditable(true);
+                }
+                else {
+                    t11.setEditable(false);
+                }
+            }
+        });
+
+
+
         p.setBackground(Color.white);
         p.setBounds(10,50,1265,600);
         f.add(p);
@@ -355,6 +508,6 @@ public class NewRegister  {
     }
 
     public static void main(String[] args){
-        new NewRegister();
+        new NewRegister("sumil","sumil123@gmail.com");
     }
 }

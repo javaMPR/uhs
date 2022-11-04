@@ -1,5 +1,6 @@
 package com.uhs.components;
 
+import com.uhs.swing.EmailValidator;
 import com.uhs.swing.MyPasswordField;
 import com.uhs.swing.MyTextField;
 
@@ -51,7 +52,12 @@ public class DLoginAndRegister {
         f1.add(b1);
         b1.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
             //LoginAndRegister lr2=new LoginAndRegister();
-            DNewRegister dnr1=new DNewRegister();
+            EmailValidator emailValidator = new EmailValidator();
+            if(!emailValidator.validate(txtEmail.getText().trim())) {
+                JOptionPane.showMessageDialog(null,"Enter a Valid Email Address");
+                return;
+            }
+            DNewRegister dnr1=new DNewRegister(t1.getText(),txtEmail.getText());
             f1.show();
             f1.dispose();
         }});
@@ -150,6 +156,11 @@ public class DLoginAndRegister {
                 JOptionPane.showMessageDialog(null,"Enter Credentials");
             }
             else{
+                EmailValidator emailValidator = new EmailValidator();
+                if(!emailValidator.validate(txtEmail.getText().trim())) {
+                    JOptionPane.showMessageDialog(null,"Enter a Valid Email Address");
+                    return;
+                }
                 try{
                     Connection c= DriverManager.getConnection("jdbc:mysql://localhost:3306/uhs","root","Sumil399");
                     String qu="Select * from doctor where doctorID=? and passwordd=?";

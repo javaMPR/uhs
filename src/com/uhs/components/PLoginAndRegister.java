@@ -51,7 +51,7 @@ public class PLoginAndRegister {
         f1.add(b1);
         b1.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
             //LoginAndRegister lr2=new LoginAndRegister();
-            NewRegister nr1=new NewRegister();
+            NewRegister nr1=new NewRegister(t1.getText(),txtEmail.getText());
             f1.show();
             f1.dispose();
         }});
