@@ -61,12 +61,13 @@ public class AddReport{
 
         // create JScrollPane
         JScrollPane pane = new JScrollPane(table,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        pane.setBounds(0, 47, 1040, 200);
+        pane.setBounds(0, 47, 1020, 200);
+        pane.setBackground(new Color(200,240,247));
         table.setRowHeight(30);
         //table.setShowGrid(true);
         TableColumnModel columnModel=table.getColumnModel();
         columnModel.getColumn(3).setPreferredWidth(120);
-        columnModel.getColumn(7).setPreferredWidth(120);
+        columnModel.getColumn(7).setPreferredWidth(100);
         columnModel.getColumn(8).setPreferredWidth(30);
         table.setFont(new Font("sansserif", Font.BOLD, 12));
         table.setGridColor(new Color(230, 230, 230));
@@ -188,7 +189,7 @@ public class AddReport{
         frame.setLayout(null);
         frame.add(pane);
         Object[] row = new Object[9];
-        Object[] r00001={"R00001","Flue","Shubhum","shubhum123@hotmail.com","10-10-2022","29-10-2022","Xray of L2","Dolo350,crocin","3"};
+        Object[] r00001={"R00001","Flue","Aaron","aaron123@gmail.com","05/01/2021","12/01/2021","Xray of L2","Dolo-350,Crocin","3"};
         model.addRow(r00001);
 
         tDrec.addKeyListener(new KeyAdapter() {
@@ -537,7 +538,7 @@ public class AddReport{
 
         try{
             Connection c1= DriverManager.getConnection("jdbc:mysql://localhost:3306/uhs","root","Sumil399");
-            PreparedStatement pss= c1.prepareStatement("Select * from report where patientid in(select patientid from patient where patientid=?)");
+            PreparedStatement pss= c1.prepareStatement("Select * from report where patientid=? order by reportid asc");
             pss.setString(1,pmal);
             ResultSet rss= pss.executeQuery();
             Object[] row1 = new Object[9];
@@ -565,13 +566,13 @@ public class AddReport{
         frame.setLocation(370,150);
         frame.setSize(1040,600);
         //frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
 
     }
 
     public static void main(String[] args){
-        new AddReport("user","user@gmail.com","user","user@gmail.com");
+        new AddReport("sujal","sujal@gmail.com","user","user@gmail.com");
 
     }
 }

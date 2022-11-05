@@ -59,8 +59,11 @@ public class PatientDashBoard {
         p1.add(b35);
         p1.add(b34);
 
-
-
+        b30.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
+            new PatientDashBoard(sname,semail);
+            f.show();
+            f.dispose();
+        }});
         b31.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
             NewViewP np1=new NewViewP(semail);
 
@@ -140,28 +143,20 @@ public class PatientDashBoard {
                         if(!emailValidator.validate(textEmail.getText().trim())) {
                             JOptionPane.showMessageDialog(null,"Enter a Valid Email Address");
                             return;
-                        }/*
+                        }
                         try{
                             Connection c= DriverManager.getConnection("jdbc:mysql://localhost:3306/uhs","root","Sumil399");
-
-
                             String qu="update patient set passwordp=? where patientid=? and passwordp=?";
                             PreparedStatement ps= c.prepareStatement(qu);
                             ps.setString(1,passp2);
                             ps.setString(2,username1);
                             ps.setString(3,passp1);
-                            ps.executeUpdate(qu);
-                            ResultSet rs= ps.executeQuery();
-
-                            if(rs.next()){
-                                JOptionPane.showMessageDialog(null,"Password Updated Succesfully");
-                            }
-                            else{
-                                JOptionPane.showMessageDialog(null,"Email ID or password does not matches");
-                            }
+                            ps.executeUpdate();
+                            JOptionPane.showMessageDialog(null,"Password Updated Succesfully");
                         }catch(Exception e1){
                             e1.printStackTrace();
-                        }*/
+                            JOptionPane.showMessageDialog(null,"Email ID or password does not matches");
+                        }
                     }
 
 
@@ -568,7 +563,7 @@ public class PatientDashBoard {
                 String rdisease=jta1.getValueAt(i,2).toString();
                 String rdrec=jta1.getValueAt(i,3).toString();
 
-                Prescription pres=new Prescription(sname,semail,repID,Dnam,rdocID,rdisease,rdrec,Dupto,comm,descp,Dos);
+                Prescription1 pres=new Prescription1(repID,sname);
 
 
                 //System.out.println("Name:"+ " " +jta1.getValueAt(row,0).toString());
@@ -853,7 +848,10 @@ public class PatientDashBoard {
         //jsp1.setBounds(10,10,50,90);
         jsp1.setBounds(0,80,665,500);
 */
-        JTextArea ta2=new JTextArea(" Conjunctivitis, also known as pinkeye, is an inflammation of the "+System.getProperty("line.separator")+" conjunctiva.The conjunctiva is the thin "+System.getProperty("line.separator")+"  clear tissue that lies over the white part "+System.getProperty("line.separator")+" of the eye and lines the inside of the eyelid"+System.getProperty("line.separator")+"---------------");
+        JTextArea ta2=new JTextArea();
+        ta2.setText("  Conjunctivitis, also known as pinkeye, is \n  an inflammation of the conjunctiva. The \n  conjunctiva is the thin clear tissue that lies \n  over the white part of the eye and lines the inside of the \n  eyelid\n -------------------------------------------------------------- \n  Coronavirus disease (COVID-19) is an \n  infectious disease caused by the SARS-\n  CoV-2 virus. " +
+                "Most people who fall sick \n  with COVID-19 will experience mild to \n  moderate symptoms and recover without \n  special treatment. However, some will \n  become seriously ill and require medical \n  attention.\n -------------------------------------------------------------- \n  Diabetes is a chronic disease that occurs \n  either when the pancreas not produce\n  enough insulin or when the body cannot \n  effectively use the insulin it produces."+
+                "\n  Diabetes can be treated and its consequences \n  avoided or delayed with diet, physical \n  activity, medication and regular screening \n  and treatment for complications.");
         p6.add(ta2);
         ta2.setEditable(false);
         ta2.setFont(new Font("sansserif", Font.BOLD, 14));

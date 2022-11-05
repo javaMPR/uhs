@@ -74,17 +74,17 @@ public class Prescription {
          rx.setFont(new Font("Vardana", Font.BOLD, 20));
          p.add(rx);
 
-         disease.setText("Patient Mr/Mrs "+String.valueOf(patname)+" on diagonosis was found to have disease "+String.valueOf(dise));
+         disease.setText("Patient Mr/Mrs "+String.valueOf(patname)+" was diagnosed with "+String.valueOf(dise)+".");
          disease.setBounds(30,182,1200,40);
          disease.setFont(new Font("Vardana", Font.BOLD, 18));
          p.add(disease);
 
-         dep.setText(String.valueOf(patname)+" has been given the above medicine "+String.valueOf(descp)+" with "+String.valueOf(Dos)+" doses per day based on his/her symptoms");
+         dep.setText(String.valueOf(patname)+" was given the aforementioned medication, "+String.valueOf(descp)+" with "+String.valueOf(Dos)+" doses per day based on his/her symptoms.");
          dep.setBounds(30,214,1220,40);
          dep.setFont(new Font("Vardana", Font.BOLD, 18));
          p.add(dep);
 
-         description.setText("is expected to follow this treatment till "+String.valueOf(Dupto));
+         description.setText("It is anticipated that they will continue taking this medication until "+String.valueOf(Dupto)+".");
          description.setBounds(30,248,1220,40);
          description.setFont(new Font("Vardana", Font.BOLD, 18));
          p.add(description);

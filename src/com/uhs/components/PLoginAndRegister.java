@@ -1,5 +1,6 @@
 package com.uhs.components;
 
+import com.uhs.swing.EmailValidator;
 import com.uhs.swing.MyPasswordField;
 import com.uhs.swing.MyTextField;
 
@@ -51,6 +52,11 @@ public class PLoginAndRegister {
         f1.add(b1);
         b1.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
             //LoginAndRegister lr2=new LoginAndRegister();
+            EmailValidator emailValidator = new EmailValidator();
+            if(!emailValidator.validate(txtEmail.getText().trim())) {
+                JOptionPane.showMessageDialog(null,"Enter a Valid Email Address");
+                return;
+            }
             NewRegister nr1=new NewRegister(t1.getText(),txtEmail.getText());
             f1.show();
             f1.dispose();

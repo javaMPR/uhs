@@ -2,6 +2,8 @@ package com.uhs.components;
 
 
 
+import com.uhs.swing.EmailValidator;
+import com.uhs.swing.MyPasswordField;
 import com.uhs.swing.MyTextField;
 
 import javax.swing.*;
@@ -21,6 +23,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Objects;
 
 public class DocDashBoard {
     public String dname,demail;
@@ -51,6 +54,12 @@ public class DocDashBoard {
         p1.add(b31);
         p1.add(b32);
         p1.add(b33);
+
+        b30.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
+            new DocDashBoard(sname,semail);
+            f.show();
+            f.dispose();
+        }});
         b33.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
             home h3=new home();
             f.show();
@@ -90,13 +99,122 @@ public class DocDashBoard {
         b33.setFocusPainted(false);
         b33.setBorderPainted(false);
 
+        b32.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
+            JFrame p8=new JFrame("CHANGE PASSWORD");
+
+            JLabel text1=new JLabel("EMAIL ID:");
+            JLabel text2=new JLabel("PASSWORD:");
+            JLabel text3=new JLabel("NEW PASSWORD: ");
+
+            MyTextField textEmail = new MyTextField();
+            MyPasswordField textPass = new MyPasswordField();
+            MyPasswordField textnewpass =new MyPasswordField();
+
+            JButton btnAdd = new JButton("UPDATE");
+            JButton btnDelete = new JButton("CLEAR");
+
+            text1.setBounds(20, 20, 100, 40);
+            text2.setBounds(20, 70, 500, 40);
+            text3.setBounds(20, 120, 500, 40);
+            text1.setFont(new Font("sansserif",Font.BOLD, 14));
+            text2.setFont(new Font("sansserif",Font.BOLD, 14));
+            text3.setFont(new Font("sansserif",Font.BOLD, 14));
+
+            textEmail.setBounds(160, 20, 200, 35);
+            textPass.setBounds(160, 70, 200, 35);
+            textnewpass.setBounds(160, 120, 200, 35);
+            text1.setFont(new Font("sansserif",Font.BOLD, 14));
+            text2.setFont(new Font("sansserif",Font.BOLD, 14));
+            text3.setFont(new Font("sansserif",Font.BOLD, 14));
+            textEmail.setHint("Enter The Email Id");
+            textPass.setHint("Enter Current Password");
+            textnewpass.setHint("Enter New Password");
+            textPass.setFont(new Font("sansserif",Font.BOLD, 12));
+            textEmail.setFont(new Font("sansserif",Font.BOLD, 12));
+            textnewpass.setFont(new Font("sansserif",Font.BOLD, 12));
+
+            btnAdd.setFocusPainted(false);
+            btnAdd.setBorderPainted(false);
+            btnDelete.setFocusPainted(false);
+            btnDelete.setBorderPainted(false);
+
+            btnAdd.setBounds(80, 180, 100, 25);
+            btnDelete.setBounds(190, 180, 100, 25);
+
+            p8.add(text1);
+            p8.add(text2);
+            p8.add(text3);
+            p8.add(textPass);
+            p8.add(textEmail);
+            p8.add(textnewpass);
+            p8.add(btnAdd);
+            p8.add(btnDelete);
+
+
+
+
+            btnAdd.addActionListener(new ActionListener(){
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String username1 = "";
+                    if(semail.equals(textEmail.getText())){
+                        username1=textEmail.getText();}
+                    String passp1=textPass.getText();
+                    String passp2=textnewpass.getText();
+                    if(username1.isEmpty()||passp1.isEmpty()||passp2.isEmpty()){
+                        JOptionPane.showMessageDialog(null,"Enter Valid Details");
+                    }
+                    else{
+                        EmailValidator emailValidator = new EmailValidator();
+                        if(!emailValidator.validate(textEmail.getText().trim())) {
+                            JOptionPane.showMessageDialog(null,"Enter a Valid Email Address");
+                            return;
+                        }
+                        try{
+                            Connection c= DriverManager.getConnection("jdbc:mysql://localhost:3306/uhs","root","Sumil399");
+                            String qu="update doctor set passwordd=? where doctorID=? and passwordd=?";
+                            PreparedStatement ps= c.prepareStatement(qu);
+                            ps.setString(1,passp2);
+                            ps.setString(2,username1);
+                            ps.setString(3,passp1);
+                            ps.executeUpdate();
+                            JOptionPane.showMessageDialog(null,"Password Updated Succesfully");
+                        }catch(Exception e1){
+                            e1.printStackTrace();
+                            JOptionPane.showMessageDialog(null,"Email ID or password does not matches");
+                        }
+                    }
+
+
+                }
+            });
+
+            btnDelete.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    textPass.setText("");
+                    textEmail.setText("");
+                    textnewpass.setText("");
+                }
+            });
+
+            p8.setBackground(Color.black);
+            p8.setSize(400, 300);
+            p8.setLocationRelativeTo(null);
+            p8.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            p8.setLayout(null);
+            p8.setVisible(true);
+
+        }});
+
 
         JPanel p2=new JPanel();
         p2.setBounds(240,0,1060,40);
         p2.setBackground(Color.white);
         f.add(p2);
         p2.setLayout(null);
-        JLabel p11=new JLabel(new ImageIcon(getClass().getResource("/com/uhs/images/user.png")));
+        JLabel p11=new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource("/com/uhs/images/user.png"))));
         p11.setBounds(1000,1,50,40);
         p2.add(p11);
         JLabel lName=new JLabel();
@@ -301,7 +419,6 @@ public class DocDashBoard {
                         PreparedStatement ps= c.prepareStatement(qu);
                         ps.setString(1,username);
                         ResultSet rs= ps.executeQuery();
-
                         if(rs.next()){
                             String fnme=rs.getString("fnamep");
                             String phne=rs.getString("Phonep");
@@ -310,7 +427,6 @@ public class DocDashBoard {
                             row[0] = fnme;
                             row[1] = username;
                             row[2] = phne;
-
                             // add row to the model
                             model.addRow(row);
                             p8.setVisible(true);
@@ -551,10 +667,13 @@ public class DocDashBoard {
         //jsp1.setBounds(10,10,50,90);
         jsp1.setBounds(0,80,665,500);
 */
-        JTextArea ta2=new JTextArea("   Conjunctivitis, also known as pinkeye, is an "+System.getProperty("line.separator")+"   inflammation of the conjunctiva.The conjunctiva  "+System.getProperty("line.separator")+"   is the thin  clear tissue that lies over the white part "+System.getProperty("line.separator")+"   of the eye and lines the inside of the eyelid"+System.getProperty("line.separator")+System.getProperty("line.separator"));
+        JTextArea ta2=new JTextArea();
+        ta2.setText("  Conjunctivitis, also known as pinkeye, is \n  an inflammation of the conjunctiva. The \n  conjunctiva is the thin clear tissue that lies \n  over the white part of the eye and lines the inside of the \n  eyelid\n -------------------------------------------------------------- \n  Coronavirus disease (COVID-19) is an \n  infectious disease caused by the SARS-\n  CoV-2 virus. " +
+                "Most people who fall sick \n  with COVID-19 will experience mild to \n  moderate symptoms and recover without \n  special treatment. However, some will \n  become seriously ill and require medical \n  attention.\n -------------------------------------------------------------- \n  Diabetes is a chronic disease that occurs \n  either when the pancreas not produce\n  enough insulin or when the body cannot \n  effectively use the insulin it produces."+
+                "\n  Diabetes can be treated and its consequences \n  avoided or delayed with diet, physical \n  activity, medication and regular screening \n  and treatment for complications.");
         p6.add(ta2);
         ta2.setEditable(false);
-        ta2.setFont(new Font("sansserif", 1, 12));
+        ta2.setFont(new Font("sansserif", Font.BOLD, 14));
 
         //ta2.setBounds(30,20,105,200);
         //ta2.setBackground(Color.BLACK);
@@ -584,6 +703,6 @@ public class DocDashBoard {
 
 
     public static void main(String[] args){
-        new DocDashBoard("user","us");
+        new DocDashBoard("ajay","ajay@gmail.com");
     }
 }

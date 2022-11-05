@@ -6,10 +6,7 @@ import com.uhs.swing.MyTextField;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -94,6 +91,18 @@ public class NewEditP {
         t8.setBounds(730,161,200,40);
         t8.setHint("Pincode");
         p.add(t8);
+        t8.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent EVT) {
+                String value = t8.getText();
+                int l = value.length();
+                if ((EVT.getKeyChar() >= '0' && EVT.getKeyChar() <= '9' && (l<=5)) || EVT.getKeyCode()==KeyEvent.VK_BACK_SPACE) {
+                    t8.setEditable(true);
+                }
+                else {
+                    t8.setEditable(false);
+                }
+            }
+        });
         JLabel l9=new JLabel("BLOOD GROUP:");
         l9.setFont(new Font("Vardana", Font.BOLD, 16));
         l9.setForeground(new Color(3, 4, 94));
@@ -102,7 +111,8 @@ public class NewEditP {
 //        String bloodgrp[]={"--Select--","A+","A-","B+","B-","AB+","AB-","O+","O-"};
         MyTextField cb=new MyTextField();
         cb.setBounds(1100, 161,90,40);
-        cb.setForeground(new Color(3, 4, 94));
+        cb.setFont(new Font("Vardana",1,14));
+        //cb.setForeground(new Color(3, 4, 94));
         cb.setHint("BG");
         p.add(cb);
         JLabel l10=new JLabel("GENDER: ");
@@ -137,6 +147,18 @@ public class NewEditP {
         t11.setBounds(420,235,200,40);
         t11.setHint("Contact No");
         p.add(t11);
+        t11.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent EVT) {
+                String value = t11.getText();
+                int l = value.length();
+                if ((EVT.getKeyChar() >= '0' && EVT.getKeyChar() <= '9' && (l<=9)) || EVT.getKeyCode()==KeyEvent.VK_BACK_SPACE) {
+                    t11.setEditable(true);
+                }
+                else {
+                    t11.setEditable(false);
+                }
+            }
+        });
         JLabel l12=new JLabel("Email:");
         l12.setFont(new Font("Vardana", Font.BOLD, 16));
         l12.setForeground(new Color(3, 4, 94));
@@ -155,8 +177,108 @@ public class NewEditP {
         MyTextField t13=new MyTextField();
         t13.setFont(new Font("Vardana",1,14));
         t13.setBounds(1010,235,190,40);
-        t13.setHint("-Date-Of-Birth-");
+        t13.setHint(" DD/MM/YYYY");
         p.add(t13);
+        t13.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent EVT) {
+                String value = t13.getText();
+                int l = value.length();
+                if ((EVT.getKeyChar() >= '0' && EVT.getKeyChar() <= '9' && (l<=9)) || EVT.getKeyCode()==KeyEvent.VK_BACK_SPACE) {
+                    t13.setEditable(true);
+                    /*if(l==2){
+                        String d1=t13.getText();
+                        t13.setText(d1+"/");
+                        if(value.charAt(0)>'3'||value.charAt(1)>'9'){
+                            t13.setText("");
+                        }
+                    }*/
+                    if(l==2) {
+                        String d1 = t13.getText();
+                        if (value.charAt(0) == '3') {
+                            if (value.charAt(1) <= '1') {
+                                t13.setText(d1 + "/");
+                            } else {
+                                t13.setText("");
+                                JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                            }
+                        } else if (value.charAt(0) == '0') {
+                            if (value.charAt(1) <= '9') {
+                                t13.setText(d1 + "/");
+                            } else {
+                                t13.setText("");
+                                JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                            }
+                        } else if (value.charAt(0) == '1') {
+                            if (value.charAt(1) <= '9') {
+                                t13.setText(d1 + "/");
+                            } else {
+                                t13.setText("");
+                                JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                            }
+                        } else if (value.charAt(0) == '2') {
+                            if (value.charAt(1) <= '9') {
+                                t13.setText(d1 + "/");
+                            } else {
+                                t13.setText("");
+                                JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                            }
+                        } else {
+                            t13.setText("");
+                            JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                        }
+                    }
+                    if(l==5){
+                        String d1=t13.getText();
+                        if(value.charAt(3)=='1'){
+                            if(value.charAt(4)<='2'){
+                                t13.setText(d1+"/");
+                            }
+                            else {
+                                t13.setText("");
+                                JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                            }
+                        }
+                        else if(value.charAt(3)=='0'){
+                            if(value.charAt(4)<='9'){
+                                t13.setText(d1+"/");
+                            } else {
+                                t13.setText("");
+                                JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                            }
+                        }
+                        else{
+                            t13.setText("");
+                            JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                        }
+                    }
+                    if(l==9){
+                        String d1=t13.getText();
+                        if(value.charAt(6)=='2'){
+                            if(value.charAt(7)!='0'){
+                                t13.setText("");
+                                JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                            }
+                            else {
+                                t13.setText(String.valueOf(d1));
+                            }
+                        }
+                        else if(value.charAt(6)>'2'){
+                            t13.setText("");
+                            JOptionPane.showMessageDialog(null,"ENTER A VALID DATE");
+                        }
+                    }
+                }
+                else {
+                    t13.setEditable(false);
+                }
+            }
+        });
+
+        t13.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent EVT) {
+                if(EVT.getKeyCode()==KeyEvent.VK_BACK_SPACE){
+                    t13.setText("");
+                }}});
         JLabel l21=new JLabel("EMERGENCY PERSON DETAILS:");
         l21.setFont(new Font("Vardana", Font.BOLD, 16));
         l21.setForeground(new Color(3, 4, 94));
